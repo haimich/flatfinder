@@ -3,10 +3,23 @@ var express = require('express');
 var app = express();
 var pg = require('pg');
 
+var scrape = require('./scrape');
+
 app.set('port', (process.env.PORT || 3000));
 
-app.get('/', function (req, res) {
+app.get('/', function (request, response) {
   res.send(cool());
+});
+
+app.get('/scrape', function(request, response) {
+  scrape.scrapeKM()
+    .then((flats) => {
+      response.send(flats);
+    })
+    .catch((err) => {
+      console.error(err);
+      response.send('Error ' + err);
+    });
 });
 
 app.get('/db', function (request, response) {
@@ -18,7 +31,7 @@ app.get('/db', function (request, response) {
         response.send('Error ' + err);
       }
       else {
-        response.send(result);
+        response.send(result.rows);
       }
     });
   });
