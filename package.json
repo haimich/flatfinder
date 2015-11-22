@@ -1,0 +1,22 @@
+{
+  "name": "flatfinder",
+  "version": "0.0.1",
+  "description": "A webscraping attempt.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haimich/flatfinder.git"
+  },
+  "author": "Michael Müller",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haimich/flatfinder/issues"
+  },
+  "homepage": "https://github.com/haimich/flatfinder#readme",
+  "dependencies": {
+    "js-yaml": "^3.4.4"
+  }
+}
