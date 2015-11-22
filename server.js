@@ -10,7 +10,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/db', function (request, response) {
-  pg.connect('postgres://localhost:5432/CrisMichSmall', function(err, client, done) { //process.env.DATABASE_URL
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     client.query('SELECT * FROM test_table', function(err, result) {
       done();
       if (err) {
