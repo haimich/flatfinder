@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "A webscraping attempt.",
   "main": "server.js",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +20,7 @@
   },
   "homepage": "https://github.com/haimich/flatfinder#readme",
   "dependencies": {
+    "cool-ascii-faces": "^1.3.3",
     "express": "^4.13.3",
     "js-yaml": "^3.4.4"
   }
