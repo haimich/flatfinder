@@ -12,7 +12,7 @@ app.get('/', function (request, response) {
 });
 
 app.get('/scrape', function(request, response) {
-  scrape.scrapeKM()
+  scrape.scrape()
     .then((flats) => {
       response.send(flats);
     })
