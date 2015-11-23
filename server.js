@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var pg = require('pg');
 
-var scrape = require('./scrape');
+var service = require('./scrapeService');
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -12,8 +12,9 @@ app.get('/', function (request, response) {
 });
 
 app.get('/scrape', function(request, response) {
-  scrape.scrape()
+  service.scrapeAll()
     .then((flats) => {
+      console.log('Got response', flats)
       response.send(flats);
     })
     .catch((err) => {

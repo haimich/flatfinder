@@ -6,7 +6,7 @@ var url = 'http://immo.cuffaro-wohnkonzepte.de/immobilien/?post_type=immomakler_
 module.exports.scrape = function() {
   return new Promise((resolve, reject) => {
     request(url, function (error, response, body) {
-      if (!error) {
+      if (! error) {
         var flats = [];
         var $ = cheerio.load(body);
         
@@ -27,5 +27,3 @@ module.exports.scrape = function() {
     });
   });
 }
-
-module.exports.scrape().then((flats) => console.log(flats));
