@@ -1,9 +1,11 @@
-var cool = require('cool-ascii-faces');
-var express = require('express');
-var app = express();
-var pg = require('pg');
+'use strict';
 
-var service = require('./scrapeService');
+let cool = require('cool-ascii-faces');
+let express = require('express');
+let app = express();
+let pg = require('pg');
+
+let service = require('./scrapeService');
 
 app.set('port', (process.env.PORT || 3000));
 
@@ -38,9 +40,9 @@ app.get('/db', function (request, response) {
   });
 })
 
-var server = app.listen(app.get('port'), function () {
-  var host = server.address().address;
-  var port = server.address().port;
+let server = app.listen(app.get('port'), function () {
+  let host = server.address().address;
+  let port = server.address().port;
 
   console.log('Example app listening at http://%s:%s', host, port);
 });
