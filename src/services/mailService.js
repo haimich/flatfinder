@@ -11,7 +11,7 @@ module.exports.sendMail = (subject, text) => {
     to: TO,
     from: FROM,
     subject: subject,
-    text: text,
+    html: text,
   }
   transporter.sendMail(mail, (error, info) => {
     if (error){
