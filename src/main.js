@@ -21,7 +21,8 @@ app.get('/scrape', (request, response) => {
 });
 
 app.get('/db', (request, response) => {
-  response.send(service.hasTable());
+  service.hasTable().then(response => console.log);
+  response.status(200);
 });
 
 let server = app.listen(app.get('port'), () => {
