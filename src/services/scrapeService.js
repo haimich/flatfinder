@@ -6,7 +6,8 @@ let Promise = require('bluebird');
 let mailService = require('./mailService');
 
 let adapters = [
-  require('../adapters/km'),
+  // require('../adapters/km'),
+  require('../adapters/weisenburger'),
   // require('../adapters/cuffaro'),
 ];
 

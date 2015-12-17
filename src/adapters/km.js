@@ -1,9 +1,11 @@
 'use strict';
 
-let request = require('request-promise'),
-	  cheerio = require('cheerio');
-  
-let url = 'http://www.koehler-und-meinzer.de/aktuelles/im-verkauf/';
+let request = require('request-promise');
+let cheerio = require('cheerio');
+let Flat = require('../models/Flat');
+
+const COMPANY_ID = 'km';
+const url = 'http://www.koehler-und-meinzer.de/aktuelles/im-verkauf/';
 
 module.exports.scrape = () => {
   return request(url)

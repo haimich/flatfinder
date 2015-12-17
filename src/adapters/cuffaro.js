@@ -1,9 +1,11 @@
 'use strict';
 
-let request = require('request-promise'),
-	  cheerio = require('cheerio');
-  
-let url = 'http://www.cuffaro-immobilien.de/immobilien/?post_type=immomakler_object&vermarktungsart=kauf&nutzungsart=wohnen&typ=&ort=&von-qm=0.00&bis-qm=180.00&von-zimmer=0.00&bis-zimmer=6.00&von-kaltmiete=0.00&bis-kaltmiete=900.00&von-kaufpreis=0.00&bis-kaufpreis=475000.00';
+let request = require('request-promise');
+let cheerio = require('cheerio');
+let Flat = require('../models/Flat');
+
+const COMPANY_ID = 'cuffaro';
+const url = 'http://www.cuffaro-immobilien.de/immobilien/?post_type=immomakler_object&vermarktungsart=kauf&nutzungsart=wohnen&typ=&ort=&von-qm=0.00&bis-qm=180.00&von-zimmer=0.00&bis-zimmer=6.00&von-kaltmiete=0.00&bis-kaltmiete=900.00&von-kaufpreis=0.00&bis-kaufpreis=475000.00';
 
 module.exports.scrape = () => {
   return request(url)
