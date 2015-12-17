@@ -11,3 +11,5 @@ This Node.js tool regularly scrapes sites where flats are offered to buy.
 * http://home.immobilienscout24.de/2a2MS/offers/HouseBuy/listed/ScoutID/0
 * http://immo.cuffaro-wohnkonzepte.de/immobilien/?post_type=immomakler_object&vermarktungsart=kauf&nutzungsart=wohnen&typ=&ort=&von-qm=95.00&bis-qm=145.00&von-zimmer=2.00&bis-zimmer=5.00&von-kaltmiete=0.00&bis-kaltmiete=100.00&von-kaufpreis=175000.00&bis-kaufpreis=475000.00
 * http://www.immo-kassel.com/immobilien/immobilien-zum-kaufen.html#Wohnung
+* https://www.volkswohnung.com/angebote/kaufen/
+* http://www.knielingen-zweinull.de/
