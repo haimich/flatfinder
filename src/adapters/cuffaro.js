@@ -3,7 +3,7 @@
 let request = require('request-promise'),
 	  cheerio = require('cheerio');
   
-let url = 'http://immo.cuffaro-wohnkonzepte.de/immobilien/?post_type=immomakler_object&vermarktungsart=kauf&nutzungsart=wohnen&typ=&ort=&von-qm=95.00&bis-qm=145.00&von-zimmer=2.00&bis-zimmer=5.00&von-kaltmiete=0.00&bis-kaltmiete=100.00&von-kaufpreis=175000.00&bis-kaufpreis=475000.00';
+let url = 'http://www.cuffaro-immobilien.de/immobilien/?post_type=immomakler_object&vermarktungsart=kauf&nutzungsart=wohnen&typ=&ort=&von-qm=0.00&bis-qm=180.00&von-zimmer=0.00&bis-zimmer=6.00&von-kaltmiete=0.00&bis-kaltmiete=900.00&von-kaufpreis=0.00&bis-kaufpreis=475000.00';
 
 module.exports.scrape = () => {
   return request(url)

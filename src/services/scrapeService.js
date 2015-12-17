@@ -2,60 +2,30 @@
 
 let fs = require('fs');
 let path = require('path');
-let repo = require('../repos/dbRepo');
+let Promise = require('bluebird');
+let mailService = require('./mailService');
 
-let adapters = [];
-
-function loadAdapters() {
-  let names = fs.readdirSync(path.join(__dirname, '../adapters'));
-
-  let dependencies = names.map((value) => {
-    return value.slice(0, value.length - 3);
-  });
-  
-  dependencies.forEach((element) => {
-    let dep = require('../adapters/' + element);
-    adapters.push(dep);
-  });
-}
+let adapters = [
+  require('../adapters/km'),
+  // require('../adapters/cuffaro'),
+];
 
 module.exports.scrapeAll = () => {
-  return new Promise((resolve, reject) => {
-    let results = [],
-        errors = [];
-    
-    adapters.forEach((adapter, index) => {
+  return Promise.map(adapters, adapter => adapter.scrape())
+    .then((flatResponses) => {
+      mailService.sendMail(
+        'Flatfinder found new offers',
+        JSON.stringify(flatResponses)
+      );
       
-      adapter.scrape()
-        .then((res) => {
-          results.push(res);
-          
-          console.log(adapters.length);
-          if (index === adapters.length - 1) {
-            if (errors.length >= 1) {
-              reject(errors);
-            } else {
-              resolve(results);
-            }
-          }
-        })
-        .catch((err) => {
-          errors.push(err);
-          
-          if (index === adapters.length - 1) {
-            reject(errors);
-          }
-        });
+      return flatResponses;
+    })
+    .catch((err) => {
+      mailService.sendMail(
+        'Flatfinder had a hickup',
+        JSON.stringify(err.stack)
+      );
+      
+      throw err;
     });
-  });
 }
-
-module.exports.searchOffersByTitle = (title) => {
-  return repo.searchOffersByTitle(title);
-}
-
-module.exports.insertOffer = (offer) => {
-  return repo.insertOffer(offer);
-}
-
-loadAdapters(); // bootstrap
