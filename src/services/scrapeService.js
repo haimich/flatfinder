@@ -7,7 +7,7 @@ let adapters = [];
 function loadAdapters() {
   let names = fs.readdirSync(path.join(__dirname, '../adapters'));
 
-  let dependencies =  names.map((value) => {
+  let dependencies = names.map((value) => {
     return value.slice(0, value.length - 3);
   });
   
