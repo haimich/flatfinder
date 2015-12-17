@@ -10,11 +10,15 @@ module.exports.getInstance = () => {
     try {
       instance = knexDb({
         client: 'pg',
-        debug: false,
+        debug: true,
         connection: {
           connection: process.env.DATABASE_URL,
           database: 'd1ou8ff1cn9r17',
           timezone: 'UTC',
+        },
+        pool: {
+          min: 0,
+          max: 1,
         }
       });
     } catch (err) {
