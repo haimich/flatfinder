@@ -21,8 +21,13 @@ app.get('/scrape', (request, response) => {
 });
 
 app.get('/db', (request, response) => {
-  service.hasTable().then(response => console.log);
-  response.status(200);
+  service.insertOffer({
+    'company_id': 'weisenburger',
+    title: 'Rastatt, Wohnpark am Leopoldplatz 2',
+    url: 'http://www.weisenburger.de/kaufen-musterhaeuser-aktuelle-wohnobjekte/wohnungen-reihenhaeuser-doppelhaeuser-einfamilienhaeuser/rastatt-wohnpark-am-leopoldplatz.html'
+  }).then(response => console.log(response));
+  
+  response.sendStatus(200)
 });
 
 let server = app.listen(app.get('port'), () => {
