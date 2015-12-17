@@ -1,17 +1,12 @@
 'use strict';
 
-let cool = require('cool-ascii-faces');
 let express = require('express');
 let app = express();
-let pg = require('pg');
 
-let service = require('./scrapeService');
+let service = require('./services/scrapeService');
+let dbHelper = require('./helpers/db');
 
 app.set('port', (process.env.PORT || 3000));
-
-app.get('/', (request, response) => {
-  res.send(cool());
-});
 
 app.get('/scrape', (request, response) => {
   service.scrapeAll()
@@ -26,19 +21,8 @@ app.get('/scrape', (request, response) => {
 });
 
 app.get('/db', (request, response) => {
-  pg.connect(process.env.DATABASE_URL, (err, client, done) => {
-    client.query('SELECT * FROM test_table', (err, result) => {
-      done();
-      if (err) {
-        console.error(err);
-        response.send('Error ' + err);
-      }
-      else {
-        response.send(result.rows);
-      }
-    });
-  });
-})
+  response.send(service.hasTable());
+});
 
 let server = app.listen(app.get('port'), () => {
   let host = server.address().address;

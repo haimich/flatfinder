@@ -1,22 +1,25 @@
-var fs = require('fs');
-var adapters = [];
+'use strict';
+
+let fs = require('fs');
+let path = require('path');
+let adapters = [];
 
 function loadAdapters() {
-  var names = fs.readdirSync('adapter');
+  let names = fs.readdirSync(path.join(__dirname, '../adapters'));
 
-  var dependencies =  names.map((value) => {
+  let dependencies =  names.map((value) => {
     return value.slice(0, value.length - 3);
   });
   
   dependencies.forEach((element) => {
-    var dep = require('./adapter/' + element);
+    let dep = require('../adapters/' + element);
     adapters.push(dep);
   });
 }
 
-function scrapeAll() {
+module.exports.scrapeAll = () => {
   return new Promise((resolve, reject) => {
-    var results = [],
+    let results = [],
         errors = [];
     
     adapters.forEach((adapter, index) => {
@@ -45,6 +48,8 @@ function scrapeAll() {
   });
 }
 
-loadAdapters(); // bootstrap
+module.exports.hasTable = () => {
+  return repo.hasTable();
+}
 
-module.exports.scrapeAll = scrapeAll;
+loadAdapters(); // bootstrap
