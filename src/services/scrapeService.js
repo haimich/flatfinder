@@ -6,9 +6,9 @@ let Promise = require('bluebird');
 let mailService = require('./mailService');
 
 let adapters = [
-  // require('../adapters/km'),
+  require('../adapters/km'),
   require('../adapters/weisenburger'),
-  // require('../adapters/cuffaro'),
+  require('../adapters/cuffaro'),
 ];
 
 module.exports.scrapeAll = () => {
@@ -36,8 +36,9 @@ function prepareMailText(flatResponses) {
   
   for (let flats of flatResponses) {
     for (let flat of flats) {
-      text += `<p><strong>${flat.companyId}</strong>: <a href="${flat.url}">${flat.title}</a></p>`;
+      text += `<strong>${flat.companyId}</strong>: <a href="${flat.url}">${flat.title}</a><br />`;
     }
+    text += '<br />';
   }
   
   return text;
