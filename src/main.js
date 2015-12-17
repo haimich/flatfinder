@@ -9,11 +9,11 @@ let service = require('./scrapeService');
 
 app.set('port', (process.env.PORT || 3000));
 
-app.get('/', function (request, response) {
+app.get('/', (request, response) => {
   res.send(cool());
 });
 
-app.get('/scrape', function(request, response) {
+app.get('/scrape', (request, response) => {
   service.scrapeAll()
     .then((flats) => {
       console.log('Got response', flats)
@@ -25,9 +25,9 @@ app.get('/scrape', function(request, response) {
     });
 });
 
-app.get('/db', function (request, response) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM test_table', function(err, result) {
+app.get('/db', (request, response) => {
+  pg.connect(process.env.DATABASE_URL, (err, client, done) => {
+    client.query('SELECT * FROM test_table', (err, result) => {
       done();
       if (err) {
         console.error(err);
@@ -40,7 +40,7 @@ app.get('/db', function (request, response) {
   });
 })
 
-let server = app.listen(app.get('port'), function () {
+let server = app.listen(app.get('port'), () => {
   let host = server.address().address;
   let port = server.address().port;
 
