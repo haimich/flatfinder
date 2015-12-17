@@ -50,8 +50,12 @@ module.exports.scrapeAll = () => {
   });
 }
 
-module.exports.hasTable = () => {
-  return repo.hasTable();
+module.exports.searchOffersByTitle = (title) => {
+  return repo.searchOffersByTitle(title);
+}
+
+module.exports.insertOffer = (offer) => {
+  return repo.insertOffer(offer);
 }
 
 loadAdapters(); // bootstrap
