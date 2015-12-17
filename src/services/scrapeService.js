@@ -14,18 +14,18 @@ let adapters = [
 module.exports.scrapeAll = () => {
   return Promise.map(adapters, adapter => adapter.scrape())
     .then((flatResponses) => {
-      mailService.sendMail(
-        'Flatfinder found new offers',
-        JSON.stringify(flatResponses)
-      );
+      // mailService.sendMail(
+      //   'Flatfinder found new offers',
+      //   JSON.stringify(flatResponses)
+      // );
       
       return flatResponses;
     })
     .catch((err) => {
-      mailService.sendMail(
-        'Flatfinder had a hickup',
-        JSON.stringify(err.stack)
-      );
+      // mailService.sendMail(
+      //   'Flatfinder had a hickup',
+      //   JSON.stringify(err.stack)
+      // );
       
       throw err;
     });

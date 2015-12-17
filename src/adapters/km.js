@@ -5,13 +5,13 @@ let cheerio = require('cheerio');
 let Flat = require('../models/Flat');
 
 const COMPANY_ID = 'km';
-const url = 'http://www.koehler-und-meinzer.de/aktuelles/im-verkauf/';
+const URL = 'http://www.koehler-und-meinzer.de/aktuelles/im-verkauf/';
 
 module.exports.scrape = () => {
   return request(url)
     .then(response => {
       let flats = [];
-      let $ = cheerio.load(response.body);
+      let $ = cheerio.load(response);
       
       $('form .cc-m-form-checkgroup label div').each((i, el) => {
         let category = $(el).text().trim();
