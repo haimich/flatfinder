@@ -2,6 +2,8 @@
 
 let fs = require('fs');
 let path = require('path');
+let repo = require('../repos/dbRepo');
+
 let adapters = [];
 
 function loadAdapters() {
