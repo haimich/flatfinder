@@ -1,9 +1,8 @@
 'use strict';
 
-let fs = require('fs');
-let path = require('path');
 let Promise = require('bluebird');
 let mailService = require('./mailService');
+let offersService = require('./offersService');
 
 let adapters = [
   require('../adapters/km'),
@@ -14,18 +13,22 @@ let adapters = [
 module.exports.scrapeAll = () => {
   return Promise.map(adapters, adapter => adapter.scrape())
     .then((flatResponses) => {
-      mailService.sendMail(
-        'Flatfinder found new offers',
-        prepareMailText(flatResponses)
-      );
+      offersService.hasOffer('km2', '2-Zimmer-Eigentumswohnung Karlsruhe-Beiertheim')
+        .then(response => console.log(response));
+    })
+    .then((flatResponses) => {
+      // mailService.sendMail(
+      //   'Flatfinder found new offers',
+      //   prepareMailText(flatResponses)
+      // );
       
       return flatResponses;
     })
     .catch((err) => {
-      mailService.sendMail(
-        'Flatfinder had a hickup',
-        JSON.stringify(err.stack)
-      );
+      // mailService.sendMail(
+      //   'Flatfinder had a hickup',
+      //   JSON.stringify(err.stack)
+      // );
       
       throw err;
     });
