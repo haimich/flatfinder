@@ -28,8 +28,12 @@ module.exports.offerExists = (companyId, title) => {
   });
 }
 
-module.exports.insertOffer = (offer) => {
+module.exports.insertOffer = (companyId, title, url) => {
   return dbHelper.getInstance()
-    .insert(offer)
+    .insert({
+      company_id: companyId,
+      title,
+      url
+    })
     .into('offers');
 }

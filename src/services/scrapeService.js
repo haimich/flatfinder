@@ -19,15 +19,13 @@ module.exports.scrapeAll = () => {
       });
     })
     .then((flatResponses) => {
-      return flatResponses;
-      // return Promise.map(flatResponses, (flats) => {
-        
-      // });
+      return Promise.map(flatResponses, (flats) => {
+        return Promise.map(flats, insertIfNew);
+      });
     })
     .then((flatResponses) => {
       companyService.getCompanies()
         .then((companies) => {
-          prepareMailText(flatResponses, companies);
           mailService.sendMail(
             'Flatfinder found new offers',
             prepareMailText(flatResponses, companies)
@@ -52,6 +50,14 @@ function checkOfferExists(flat) {
     });
 }
 
+function insertIfNew(flat) {
+  if (flat.exists) {
+    return flat;
+  }
+  return offersService.insertOffer(flat.companyId, flat.title, flat.url)
+    .then(() => flat);
+}
+
 function prepareMailText(flatResponses, companies) {
   let text = '';
   
@@ -63,7 +69,7 @@ function prepareMailText(flatResponses, companies) {
         text += `<h2>${companyName}</h2>`;
       }
       
-      if (!flats.exists) {
+      if (!flat.exists) {
         text += `<a href="${flat.url}">${flat.title}</a><br />`;
       }
     });

@@ -10,6 +10,6 @@ module.exports.offerExists = (companyId, title) => {
   return repo.offerExists(companyId, title);
 }
 
-module.exports.insertOffer = (offer) => {
-  return repo.insertOffer(offer);
+module.exports.insertOffer = (companyId, title, url) => {
+  return repo.insertOffer(companyId, title, url);
 }
