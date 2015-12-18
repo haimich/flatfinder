@@ -10,7 +10,7 @@ module.exports.searchOffersByTitle = (title) => {
     .where('title', title);
 }
 
-module.exports.hasOffer = (companyId, title) => {
+module.exports.offerExists = (companyId, title) => {
   return new Promise((resolve, reject) => {
     dbHelper.getInstance()
       .count('*')
