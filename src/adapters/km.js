@@ -4,7 +4,7 @@ let request = require('request-promise');
 let cheerio = require('cheerio');
 let Flat = require('../models/Flat');
 
-const COMPANY_ID = 'Köhler & Meinzer';
+const COMPANY_ID = 'km';
 const URL = 'http://www.koehler-und-meinzer.de/aktuelles/im-verkauf/';
 
 module.exports.scrape = () => {
