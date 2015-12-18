@@ -24,13 +24,17 @@ module.exports.scrapeAll = () => {
       });
     })
     .then((flatResponses) => {
-      companyService.getCompanies()
-        .then((companies) => {
-          mailService.sendMail(
-            'Flatfinder found new offers',
-            prepareMailText(flatResponses, companies)
-          );
-        });
+      if (hasNewEntries(flatResponses)) {
+        companyService.getCompanies()
+          .then((companies) => {
+            mailService.sendMail(
+              'Flatfinder found new offers',
+              prepareMailText(flatResponses, companies)
+            );
+          });
+      } else {
+        console.log('No new entries');
+      }
     })
     .catch((err) => {
       mailService.sendMail(
@@ -58,18 +62,30 @@ function insertIfNew(flat) {
     .then(() => flat);
 }
 
+function hasNewEntries(flatResponses) {
+  for (let flats of flatResponses) {
+    for (let flat of flats) {
+      if (!flat.exists) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 function prepareMailText(flatResponses, companies) {
   let text = '';
   
   for (let flats of flatResponses) {
     
     flats.forEach((flat, index) => {
-      if (index === 0) {
-        let companyName = getCompanyName(companies, flat.companyId);
-        text += `<h2>${companyName}</h2>`;
-      }
-      
       if (!flat.exists) {
+        if (index === 0) {
+          // add header once for multiple flats of same company
+          let companyName = getCompanyName(companies, flat.companyId);
+          text += `<h2>${companyName}</h2>`;
+        }
+        
         text += `<a href="${flat.url}">${flat.title}</a><br />`;
       }
     });
