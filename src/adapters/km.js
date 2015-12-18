@@ -18,7 +18,7 @@ module.exports.scrape = () => {
         if (category === 'Wohnhäuser:') {
           $(el).parent().parent().find('.cc-m-form-checkable-vertical label').each((i, el) => {
             let title = $(el).text().trim();
-            let flat = new Flat(COMPANY_ID, title, 'TODO');
+            let flat = new Flat(COMPANY_ID, title, URL);
             flats.push(flat);
           });
         }

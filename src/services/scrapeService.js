@@ -75,15 +75,15 @@ function hasNewEntries(flatResponses) {
 
 function prepareMailText(flatResponses, companies) {
   let text = '';
+  let companyNames = getCompanyNames(companies);
   
   for (let flats of flatResponses) {
     
     flats.forEach((flat, index) => {
       if (!flat.exists) {
         if (index === 0) {
-          // add header once for multiple flats of same company
-          let companyName = getCompanyName(companies, flat.companyId);
-          text += `<h2>${companyName}</h2>`;
+          // add single header for multiple flats of same company
+          text += `<h2>${companyNames[flat.companyId]}</h2>`;
         }
         
         text += `<a href="${flat.url}">${flat.title}</a><br />`;
@@ -96,10 +96,10 @@ function prepareMailText(flatResponses, companies) {
   return text;
 }
 
-function getCompanyName(companies, id) {
+function getCompanyNames(companies) {
+  let companyNames = {};
   for (let comp of companies) {
-    if (comp.id === id) {
-      return comp.name;
-    }
+    companyNames[comp.id] = comp.name;
   }
+  return companyNames;
 }
