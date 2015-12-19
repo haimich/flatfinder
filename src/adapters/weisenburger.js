@@ -16,9 +16,9 @@ module.exports.scrape = () => {
       $('#catalog_1 ul li').each((i, el) => {
         let text = $(el).find('.p2').text().trim();
         let price = $(el).find('.district_price').text().trim();
-        let url = $(el).find('a').first().attr('href').trim();
+        let flatUrl = $(el).find('a').first().attr('href').trim();
         
-        let flat = new Flat(COMPANY_ID, `${text} (${price})`, url);
+        let flat = new Flat(COMPANY_ID, `${text} (${price})`, 'http://www.weisenburger.de/' + flatUrl);
         flats.push(flat);
       });
       

@@ -9,7 +9,7 @@ module.exports.getInstance = () => {
     
     instance = knexDb({
       client: 'sqlite3',
-      debug: true,
+      debug: false,
       connection: {
         filename: './dev.db'
       }
