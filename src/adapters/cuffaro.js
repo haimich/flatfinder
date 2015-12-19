@@ -31,12 +31,7 @@ function scrapePage(page, flats) {
       return scrapePage(page + 1, flats); // recurse
     })
     .catch((error) => {
-      console.log(error.statusCode);
-      if (error.statusCode === 404) {
-        console.log('done');
-        return flats;
-      }
-      console.log('recurse', page + 1);
-      return scrapePage(page + 1, flats); // recurse
+      console.log('Got error', error.statusCode);
+      return flats;
     });
 }
