@@ -9,6 +9,7 @@ let adapters = [
   require('../adapters/km'),
   require('../adapters/weisenburger'),
   require('../adapters/cuffaro'),
+  require('../adapters/throm'),
 ];
 
 module.exports.scrapeAll = () => {

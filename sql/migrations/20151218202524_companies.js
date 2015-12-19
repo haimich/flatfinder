@@ -1,9 +1,10 @@
 
 exports.up = (knex, Promise) => {
   return createTable(knex)
-    .then(() => insert(knex, 'cuffaro', 'Cuffaro', 'http://www.cuffaro-immobilien.de/immobilien/'))
-    .then(() => insert(knex, 'km', 'Köhler & Meinzer', 'http://www.koehler-und-meinzer.de/aktuelles/im-verkauf/'))
-    .then(() => insert(knex, 'weisenburger', 'Weisenburger', 'http://www.weisenburger.de/kaufen-musterhaeuser-aktuelle-wohnobjekte/wohnungen-reihenhaeuser-doppelhaeuser-einfamilienhaeuser.html?no_cache=1'))
+    .then(() => insert(knex, 'cuffaro', 'Cuffaro'))
+    .then(() => insert(knex, 'km', 'Köhler & Meinzer'))
+    .then(() => insert(knex, 'weisenburger', 'Weisenburger'))
+    .then(() => insert(knex, 'throm', 'Throm'));
 };
 
 exports.down = (knex, Promise) => {
@@ -16,12 +17,11 @@ function createTable(knex) {
   return knex.schema.createTable('companies', (table) => {
     table.string('id').primary();
     table.string('name');
-    table.string('url');
     
     table.index(['id'], 'companies_id_index');
   });
 }
 
-function insert(knex, id, name, url) {
-  return knex('companies').insert({ id, name, url });
+function insert(knex, id, name) {
+  return knex('companies').insert({ id, name });
 }
