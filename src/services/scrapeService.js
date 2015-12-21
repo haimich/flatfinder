@@ -10,6 +10,7 @@ let adapters = [
   require('../adapters/weisenburger'),
   require('../adapters/cuffaro'),
   require('../adapters/throm'),
+  require('../adapters/kassel'),
 ];
 
 module.exports.scrapeAll = () => {
@@ -84,10 +85,12 @@ function prepareMailText(flatResponses, companies) {
       if (!flat.exists) {
         if (index === 0) {
           // add single header for multiple flats of same company
-          text += `<h2>${companyNames[flat.companyId]}</h2>`;
+          text += `<h2>${companyNames[flat.companyId]}</h2><ul>`;
+        } else if (index === flats.length -1) {
+          text += `</ul>`;
         }
         
-        text += `<a href="${flat.url}">${flat.title}</a><br />`;
+        text += `<li><a href="${flat.url}">${flat.title}</a></li>`;
       }
     });
     
