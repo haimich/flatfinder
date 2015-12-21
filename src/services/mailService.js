@@ -3,7 +3,7 @@
 let nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport();
 
-const TO = 'michipit@gmail.com';
+const TO = 'michipit@gmail.com, im.cristina.lica@gmail.com';
 const FROM = TO;
 
 module.exports.sendMail = (subject, text) => {
