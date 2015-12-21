@@ -1,1 +1,1 @@
-web: ./node_modules/.bin/knex migrate:latest --env production && node src/main.js
+web: ./node_modules/.bin/knex migrate:latest --env development && node src/main.js
