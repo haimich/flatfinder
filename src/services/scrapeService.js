@@ -15,6 +15,7 @@ let adapters = [
   require('../adapters/goebelbecker'),
   require('../adapters/helblerichter'),
   require('../adapters/volkswohnung'),
+  require('../adapters/immoka'),
 ];
 
 module.exports.scrapeAll = () => {
@@ -90,7 +91,8 @@ function prepareMailText(flatResponses, companies) {
         if (index === 0) {
           // add single header for multiple flats of same company
           text += `<h2>${companyNames[flat.companyId]}</h2><ul>`;
-        } else if (index === flats.length -1) {
+        }
+        if (index === flats.length - 1) {
           text += `</ul>`;
         }
         
