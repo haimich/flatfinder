@@ -20,7 +20,7 @@ module.exports = {
     debug: false,
     connection: process.env.PG_CONNECTION_STRING,
     pool: {
-      min: 1,
+      min: 0,
       max: 3
     },
     // searchPath: 'knex,public',
