@@ -21,7 +21,7 @@ module.exports = {
     connection: process.env.PG_CONNECTION_STRING,
     pool: {
       min: 0,
-      max: 3
+      max: 4
     },
     // searchPath: 'knex,public',
     migrations: {
