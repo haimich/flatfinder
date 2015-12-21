@@ -2,6 +2,7 @@
 
 let request = require('request-promise');
 let cheerio = require('cheerio');
+let urlModule = require('url');
 let Flat = require('../models/Flat');
 
 const COMPANY_ID = 'immoka';
@@ -26,7 +27,7 @@ function scrapePage(page, flats) {
         let title = $(el).text().trim();
         let flatUrl = $(el).attr('href');
         
-        let flat = new Flat(COMPANY_ID, title, 'http://www.immoka.net' + flatUrl);
+        let flat = new Flat(COMPANY_ID, title, 'http://www.immoka.net' + cleanupUrl(flatUrl));
         flats.push(flat);
       });
       
@@ -36,4 +37,15 @@ function scrapePage(page, flats) {
         return flats;
       }
     })
+}
+
+/**
+ * Remove jsessionid from url so on the next run we can identify
+ * this url as already visited.
+ */
+function cleanupUrl(url) {
+  let urlObj = urlModule.parse(url);
+  let pos = urlObj.pathname.indexOf(';jsessionid');
+  urlObj.pathname = urlObj.pathname.slice(0, pos);
+  return urlModule.format(urlObj);
 }

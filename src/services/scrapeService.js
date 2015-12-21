@@ -54,7 +54,7 @@ module.exports.scrapeAll = () => {
 }
 
 function checkOfferExists(flat) {
-  return offersService.offerExists(flat.companyId, flat.title)
+  return offersService.offerExists(flat.companyId, flat.title, flat.url)
     .then(offerExists => {
       flat.exists = offerExists;
       return flat;
