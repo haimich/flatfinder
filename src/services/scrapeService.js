@@ -11,6 +11,7 @@ let adapters = [
   require('../adapters/cuffaro'),
   require('../adapters/throm'),
   require('../adapters/kassel'),
+  require('../adapters/volkswohnung'),
 ];
 
 module.exports.scrapeAll = () => {

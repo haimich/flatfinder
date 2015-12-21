@@ -6,6 +6,5 @@ This Node.js tool regularly scrapes sites where flats are offered to buy.
 * http://www.goebelbecker-bau.de/ (über Menü)
 * http://artekt.de/aktuelleprojekte.html
 * http://home.immobilienscout24.de/2a2MS/offers/HouseBuy/listed/ScoutID/0
-* http://www.immo-kassel.com/immobilien/immobilien-zum-kaufen.html#Wohnung
 * https://www.volkswohnung.com/angebote/kaufen/
 * http://www.knielingen-zweinull.de/
