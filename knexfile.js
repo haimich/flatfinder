@@ -19,6 +19,10 @@ module.exports = {
     client: 'pg',
     debug: false,
     connection: process.env.PG_CONNECTION_STRING,
+    pool: {
+      min: 1,
+      max: 3
+    }
     // searchPath: 'knex,public',
     migrations: {
       directory: './sql/migrations',
