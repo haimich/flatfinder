@@ -4,14 +4,13 @@ let express = require('express');
 let app = express();
 
 let service = require('./services/scrapeService');
-let dbHelper = require('./helpers/db');
+let nconf = require('./helpers/configuration').getInstance();
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', nconf.get('port'));
 
 app.get('/scrape', (request, response) => {
   service.scrapeAll()
     .then((flats) => {
-      console.log('Got response', flats)
       response.send(flats);
     })
     .catch((err) => {

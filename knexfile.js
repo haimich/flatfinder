@@ -13,6 +13,17 @@ module.exports = {
     seeds: {
       directory: './sql/seeds'
     }
+  },
+  
+  production: {
+    client: 'pg',
+    debug: false,
+    connection: process.env.PG_CONNECTION_STRING,
+    // searchPath: 'knex,public',
+    migrations: {
+      directory: './sql/migrations',
+      tableName: 'knex_migrations'
+    }
   }
-
+  
 };
