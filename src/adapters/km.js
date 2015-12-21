@@ -8,6 +8,7 @@ const COMPANY_ID = 'km';
 const URL = 'http://www.koehler-und-meinzer.de/aktuelles/im-verkauf/';
 
 module.exports.scrape = () => {
+  console.log('Scraping', COMPANY_ID);
   return request(URL)
     .then(response => {
       let flats = [];

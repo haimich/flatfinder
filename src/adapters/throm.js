@@ -8,6 +8,7 @@ const COMPANY_ID = 'throm';
 const URL = 'http://throm.de/angebote-verkauf.php';
 
 module.exports.scrape = () => {
+  console.log('Scraping', COMPANY_ID);
   return request(URL)
     .then(response => {
       let flats = [];

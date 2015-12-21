@@ -7,6 +7,7 @@ let Flat = require('../models/Flat');
 const COMPANY_ID = 'cuffaro';
 
 module.exports.scrape = () => {
+  console.log('Scraping', COMPANY_ID);
   let flats = [];
   return scrapePage(1, flats);
 }

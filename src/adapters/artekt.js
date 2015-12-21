@@ -4,8 +4,8 @@ let request = require('request-promise');
 let cheerio = require('cheerio');
 let Flat = require('../models/Flat');
 
-const COMPANY_ID = 'volkswohnung';
-const URL = 'https://www.volkswohnung.com/angebote/kaufen/';
+const COMPANY_ID = 'artekt';
+const URL = 'http://artekt.de/wohnen_kauf.html';
 
 module.exports.scrape = () => {
   console.log('Scraping', COMPANY_ID);
@@ -14,7 +14,7 @@ module.exports.scrape = () => {
       let flats = [];
       let $ = cheerio.load(response);
       
-      $('.tx-offers').each((i, el) => {
+      $('#rechtsbild h3').each((i, el) => {
         let title = $(el).text().trim();
         
         let flat = new Flat(COMPANY_ID, title, URL);

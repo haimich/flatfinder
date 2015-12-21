@@ -8,6 +8,7 @@ const COMPANY_ID = 'kassel';
 const URL = 'https://www.facebook.com/ImmobilienKassel?_fb_noscript=1';
 
 module.exports.scrape = () => {
+  console.log('Scraping', COMPANY_ID);
   return request({
       method: 'GET', 
       uri: URL,
