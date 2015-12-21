@@ -22,7 +22,7 @@ module.exports = {
     pool: {
       min: 1,
       max: 3
-    }
+    },
     // searchPath: 'knex,public',
     migrations: {
       directory: './sql/migrations',
