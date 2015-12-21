@@ -17,7 +17,7 @@ module.exports = {
   
   production: {
     client: 'pg',
-    debug: false,
+    debug: true,
     connection: process.env.PG_CONNECTION_STRING,
     pool: {
       min: 0,
