@@ -12,6 +12,7 @@ let adapters = [
   require('../adapters/throm'),
   require('../adapters/kassel'),
   require('../adapters/artekt'),
+  require('../adapters/goebelbecker'),
   require('../adapters/volkswohnung'),
 ];
 

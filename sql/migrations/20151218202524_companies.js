@@ -7,6 +7,7 @@ exports.up = (knex, Promise) => {
     .then(() => insert(knex, 'throm', 'Throm'))
     .then(() => insert(knex, 'volkswohnung', 'Volkswohnung'))
     .then(() => insert(knex, 'artekt', 'Artekt'))
+    .then(() => insert(knex, 'goebelbecker', 'Göbelbecker-Bau'))
     .then(() => insert(knex, 'kassel', 'Kassel'));
 };
 
