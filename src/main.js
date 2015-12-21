@@ -6,7 +6,7 @@ let app = express();
 let service = require('./services/scrapeService');
 let nconf = require('./helpers/configuration').getInstance();
 
-throw new Error(process.env.PG_CONNECTION_STRING);
+throw new Error(process.env.DATABASE_URL);
 
 app.set('port', nconf.get('port'));
 
