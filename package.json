@@ -8,8 +8,7 @@
     "npm": ">=3.0.0"
   },
   "scripts": {
-    "start": "node src/main.js",
-    "postinstall": "knex migrate:latest"
+    "start": "node src/main.js"
   },
   "repository": {
     "type": "git",
