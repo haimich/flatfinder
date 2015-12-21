@@ -5,7 +5,7 @@ exports.up = (knex, Promise) => {
       table.bigIncrements('id').primary().unsigned();
       table.string('company_id');
       table.string('title');
-      table.string('url');
+      table.text('url', 'mediumtext');
       
       table.timestamp('created_at').defaultTo(knex.fn.now());
       

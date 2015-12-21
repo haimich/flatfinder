@@ -44,7 +44,6 @@ function hasEntries(result) {
   
   if (countResult['count(*)'] !== undefined) {        //sqlite style
     let count = Number(countResult['count(*)']);
-    console.log('COUNT', count);
     return count >= 1; 
   } else if (countResult['count'] !== undefined) {   //postgres style
     let count = Number(countResult['count']);
