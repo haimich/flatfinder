@@ -7,7 +7,7 @@ let mailService = require('./services/mailService');
 app.set('port', (process.env.PORT || 3000));
 
 app.get('/scrape', (request, response) => {
-  mailService.sendMail('testmail', 'testText' + process.env);
+  mailService.sendMail('testmail', 'testText' + process.env.NODE_ENV);
   response.send('done');
 });
 
