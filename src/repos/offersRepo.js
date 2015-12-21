@@ -18,6 +18,7 @@ module.exports.offerExists = (companyId, title) => {
       .where('company_id', companyId)
       .andWhere('title', title)
       .then(result => {
+        console.log('RESULT:::', result);
         if (result[0]['count(*)'] === 0) {
           resolve(false);
         } else {
