@@ -16,6 +16,8 @@ let adapters = [
   require('../adapters/helblerichter'),
   require('../adapters/volkswohnung'),
   require('../adapters/immoka'),
+  require('../adapters/spaka'),
+  require('../adapters/spaka_haeuser'),
 ];
 
 module.exports.scrapeAll = () => {
