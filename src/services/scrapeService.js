@@ -18,6 +18,7 @@ let adapters = [
   require('../adapters/immoka'),
   require('../adapters/spaka'),
   require('../adapters/spaka_haeuser'),
+  require('../adapters/weststadtmakler'),
 ];
 
 module.exports.scrapeAll = () => {
