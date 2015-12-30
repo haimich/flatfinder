@@ -95,11 +95,12 @@ function prepareMailText(flatResponses, companies) {
           // add single header for multiple flats of same company
           text += `<h2>${companyNames[flat.companyId]}</h2><ul>`;
         }
+        
+        text += `<li><a href="${flat.url}">${flat.title}</a></li>`;
+        
         if (index === flats.length - 1) {
           text += `</ul>`;
         }
-        
-        text += `<li><a href="${flat.url}">${flat.title}</a></li>`;
       }
     });
     
