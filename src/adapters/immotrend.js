@@ -24,7 +24,7 @@ module.exports.scrape = () => {
         let flat = new Flat(COMPANY_ID, title, URL + flatUrl);
         flats.push(flat);
       });
-      console.log(flats);
+      
       return flats;
     }); 
 }

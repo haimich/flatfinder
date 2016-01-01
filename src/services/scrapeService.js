@@ -21,6 +21,7 @@ let adapters = [
   require('../adapters/weststadtmakler'),
   require('../adapters/immotrend'),
   require('../adapters/gebaka'),
+  require('../adapters/gig'),
 ];
 
 module.exports.scrapeAll = () => {
@@ -40,10 +41,12 @@ module.exports.scrapeAll = () => {
       
       if (hasNewEntries(flatResponses)) {
         companyService.getCompanies()
-          .then((companies) => {
+          .then(companies => {
+            let emptyEntries = getEmptyEntries(flatResponses);
+            
             mailService.sendMail(
               'Flatfinder found new offers',
-              prepareMailText(flatResponses, companies)
+              prepareMailText(flatResponses, companies, emptyEntries)
             );
           });
       } else {
@@ -76,6 +79,16 @@ function insertIfNew(flat) {
     .then(() => flat);
 }
 
+function getEmptyEntries(flatResponses) {
+  let emptyEntries = 0;
+  for (let flats of flatResponses) {
+    if (flats.length === 0) {
+      emptyEntries += 1;
+    }
+  }
+  return emptyEntries;
+}
+
 function hasNewEntries(flatResponses) {
   for (let flats of flatResponses) {
     for (let flat of flats) {
@@ -87,7 +100,7 @@ function hasNewEntries(flatResponses) {
   return false;
 }
 
-function prepareMailText(flatResponses, companies) {
+function prepareMailText(flatResponses, companies, emptyEntries) {
   let text = '';
   let companyNames = getCompanyNames(companies);
   
@@ -110,6 +123,8 @@ function prepareMailText(flatResponses, companies) {
     
     text += '<br />';
   }
+  
+  text += '<h3>Services without flats: </h3>' + emptyEntries;
   
   return text;
 }
