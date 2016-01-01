@@ -111,7 +111,7 @@ function hasNewEntries(flatResponses) {
 }
 
 function prepareMailText(flatResponses, companies, emptyEntries) {
-  let text = '<h2>Flatfinder 5000<h2>';
+  let text = `<h2>Flatfinder 5000<h2>`;
   let companyNames = getCompanyNames(companies);
   
   for (let flats of flatResponses) {
