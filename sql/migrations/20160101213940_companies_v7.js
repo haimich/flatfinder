@@ -6,7 +6,8 @@ exports.up = (knex, Promise) => {
     knex('companies').insert({ id: 'suw', name: 'S&W Immobilien' }),
     knex('companies').insert({ id: 'laub', name: 'Laub Immobilien' }),
     knex('companies').insert({ id: 'blumenwinkel', name: 'Blumenwinkel' }),
-    knex('companies').insert({ id: 'neubaukompass', name: 'Neubaukompass' })
+    knex('companies').insert({ id: 'neubaukompass', name: 'Neubaukompass' }),
+    knex('companies').insert({ id: 'baar', name: 'Baar Bauunternehmen' })
   ]);
 };
 
@@ -17,6 +18,7 @@ exports.down = (knex, Promise) => {
     knex('companies').where('id', 'suw').delete(),
     knex('companies').where('id', 'laub').delete(),
     knex('companies').where('id', 'blumenwinkel').delete(),
-    knex('companies').where('id', 'neubaukompass').delete()
+    knex('companies').where('id', 'neubaukompass').delete(),
+    knex('companies').where('id', 'baar').delete()
   ]);
 };
