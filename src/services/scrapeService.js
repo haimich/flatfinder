@@ -6,20 +6,21 @@ let offersService = require('./offersService');
 let companyService = require('./companyService');
 
 let adapters = [
-  // require('../adapters/km'),
-  // require('../adapters/weisenburger'),
-  // require('../adapters/cuffaro'),
-  // require('../adapters/throm'),
-  // require('../adapters/kassel'),
-  // require('../adapters/artekt'),
-  // require('../adapters/goebelbecker'),
-  // require('../adapters/helblerichter'),
-  // require('../adapters/volkswohnung'),
-  // require('../adapters/immoka'),
-  // require('../adapters/spaka'),
-  // require('../adapters/spaka_haeuser'),
-  // require('../adapters/weststadtmakler'),
+  require('../adapters/km'),
+  require('../adapters/weisenburger'),
+  require('../adapters/cuffaro'),
+  require('../adapters/throm'),
+  require('../adapters/kassel'),
+  require('../adapters/artekt'),
+  require('../adapters/goebelbecker'),
+  require('../adapters/helblerichter'),
+  require('../adapters/volkswohnung'),
+  require('../adapters/immoka'),
+  require('../adapters/spaka'),
+  require('../adapters/spaka_haeuser'),
+  require('../adapters/weststadtmakler'),
   require('../adapters/immotrend'),
+  require('../adapters/gebaka'),
 ];
 
 module.exports.scrapeAll = () => {
