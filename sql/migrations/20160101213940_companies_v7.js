@@ -9,7 +9,8 @@ exports.up = (knex, Promise) => {
     knex('companies').insert({ id: 'neubaukompass', name: 'Neubaukompass' }),
     knex('companies').insert({ id: 'baar', name: 'Baar Bauunternehmen' }),
     knex('companies').insert({ id: 'ewg', name: 'EWG Eigentums-Wohnbau-GmbH' }),
-    knex('companies').insert({ id: 'forum', name: 'Forum Bauträger' })
+    knex('companies').insert({ id: 'forum', name: 'Forum Bauträger' }),
+    knex('companies').insert({ id: 'wipfler', name: 'Wipfler Immobilien & Bauträger GmbH' })
   ]);
 };
 
@@ -23,6 +24,7 @@ exports.down = (knex, Promise) => {
     knex('companies').where('id', 'neubaukompass').delete(),
     knex('companies').where('id', 'baar').delete(),
     knex('companies').where('id', 'ewg').delete(),
-    knex('companies').where('id', 'forum').delete()
+    knex('companies').where('id', 'forum').delete(),
+    knex('companies').where('id', 'wipfler').delete()
   ]);
 };

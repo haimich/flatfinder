@@ -22,6 +22,16 @@ let adapters = [
   require('../adapters/immotrend'),
   require('../adapters/gebaka'),
   require('../adapters/gig'),
+  require('../adapters/besserwohnen'),
+  require('../adapters/haitz'),
+  require('../adapters/suw'),
+  require('../adapters/laub'),
+  require('../adapters/blumenwinkel'),
+  require('../adapters/neubaukompass'),
+  require('../adapters/baar'),
+  require('../adapters/ewg'),
+  require('../adapters/forum'),
+  require('../adapters/wipfler'),
 ];
 
 module.exports.scrapeAll = () => {
