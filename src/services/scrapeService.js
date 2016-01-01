@@ -111,7 +111,7 @@ function hasNewEntries(flatResponses) {
 }
 
 function prepareMailText(flatResponses, companies, emptyEntries) {
-  let text = '';
+  let text = '<h2>Flatfinder 5000<h2>';
   let companyNames = getCompanyNames(companies);
   
   for (let flats of flatResponses) {
@@ -126,12 +126,10 @@ function prepareMailText(flatResponses, companies, emptyEntries) {
         text += `<li><a href="${flat.url}">${flat.title}</a></li>`;
         
         if (index === flats.length - 1) {
-          text += `</ul>`;
+          text += `</ul><br />`;
         }
       }
     });
-    
-    text += '<br />';
   }
   
   text += '<h3>Services without flats: </h3>' + emptyEntries;
