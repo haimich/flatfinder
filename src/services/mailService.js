@@ -6,7 +6,7 @@ let transporter = nodemailer.createTransport();
 const TO = 'michipit@gmail.com, im.cristina.lica@gmail.com';
 const FROM = TO;
 
-module.exports.sendMail = (subject, text) => {
+function sendMail (subject, text) {
   let mail = {
     to: TO,
     from: FROM,
@@ -18,4 +18,8 @@ module.exports.sendMail = (subject, text) => {
       console.error(error);
     }
   });
+}
+
+module.exports = {
+  sendMail
 }

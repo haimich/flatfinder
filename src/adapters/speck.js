@@ -31,7 +31,6 @@ module.exports.scrape = () => {
         flats.push(flat);
       });
       
-      console.log(flats);
       return flats;
     }); 
 }

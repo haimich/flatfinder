@@ -4,6 +4,7 @@ let Promise = require('bluebird');
 let mailService = require('./mailService');
 let offersService = require('./offersService');
 let companyService = require('./companyService');
+let templateService = require('./templateService');
 
 let adapters = [
   // require('../adapters/km'),
@@ -32,46 +33,54 @@ let adapters = [
   // require('../adapters/ewg'),
   // require('../adapters/forum'),
   // require('../adapters/wipfler'),
-  // require('../adapters/sekundus'),
+  require('../adapters/sekundus'),
   require('../adapters/speck'),
 ];
 
 module.exports.scrapeAll = () => {
   return Promise.map(adapters, adapter => adapter.scrape())
-    .then((flatResponses) => {
-      return Promise.map(flatResponses, (flats) => {
+    .then(flatResponses => {
+      return Promise.map(flatResponses, flats => {
         return Promise.map(flats, checkOfferExists);
       });
     })
-    .then((flatResponses) => {
-      return Promise.map(flatResponses, (flats) => {
+    .then(flatResponses => {
+      return Promise.map(flatResponses, flats => {
         return Promise.map(flats, insertIfNew);
       });
     })
-    .then((flatResponses) => {
+    .then(flatResponses => {
       console.log('Scraping done');
       
-      if (hasNewEntries(flatResponses)) {
+      // if (hasNewEntries(flatResponses)) {
         companyService.getCompanies()
           .then(companies => {
             let emptyEntries = getEmptyEntries(flatResponses);
+            let companyNames = getCompanyNames(companies);
+            let data = {
+              flatResponses,
+              companyNames,
+              emptyEntries
+            };
+            let text = templateService.compileTemplate(templateService.TEMPLATE_NAMES.OFFERS, data);
             
-            mailService.sendMail(
-              'Flatfinder found new offers',
-              prepareMailText(flatResponses, companies, emptyEntries)
-            );
+            console.log(text);
+            // mailService.sendMail(
+            //   'Flatfinder found new offers',
+            //   text
+            // );
           });
-      } else {
-        console.log('No new entries');
-      }
+      // } else {
+      //   console.log('No new entries');
+      // }
     })
-    .catch((err) => {
+    .catch(error => {
       mailService.sendMail(
         'Flatfinder had a hickup',
-        JSON.stringify(err.stack)
+        JSON.stringify(error.stack)
       );
       
-      throw err;
+      throw error;
     });
 }
 
@@ -110,33 +119,6 @@ function hasNewEntries(flatResponses) {
     }
   }
   return false;
-}
-
-function prepareMailText(flatResponses, companies, emptyEntries) {
-  let text = `<h2>Flatfinder 5000<h2>`;
-  let companyNames = getCompanyNames(companies);
-  
-  for (let flats of flatResponses) {
-    
-    flats.forEach((flat, index) => {
-      if (!flat.exists) {
-        if (index === 0) {
-          // add single header for multiple flats of same company
-          text += `<h2>${companyNames[flat.companyId]}</h2><ul>`;
-        }
-        
-        text += `<li><a href="${flat.url}">${flat.title}</a></li>`;
-        
-        if (index === flats.length - 1) {
-          text += `</ul><br />`;
-        }
-      }
-    });
-  }
-  
-  text += '<h3>Services without flats: </h3>' + emptyEntries;
-  
-  return text;
 }
 
 function getCompanyNames(companies) {
