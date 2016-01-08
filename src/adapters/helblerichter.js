@@ -9,7 +9,10 @@ const URL = 'http://www.helble-richter.de/immobilien/wohnen/ergebnis?objektart=3
 
 module.exports.scrape = () => {
   console.log('Scraping', COMPANY_ID);
-  return request(URL)
+  return request({
+    uri: URL,
+    encoding: 'binary'
+  })
     .then(response => {
       let flats = [];
       let $ = cheerio.load(response);

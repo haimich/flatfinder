@@ -9,7 +9,10 @@ const URL = 'http://www.goebelbecker-bau.de/';
 
 module.exports.scrape = () => {
   console.log('Scraping', COMPANY_ID);
-  return request(URL)
+  return request({
+    uri: URL,
+    encoding: 'binary'
+  })
     .then(response => {
       let flats = [];
       let $ = cheerio.load(response);

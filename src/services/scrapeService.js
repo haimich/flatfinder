@@ -7,32 +7,32 @@ let companyService = require('./companyService');
 let templateService = require('./templateService');
 
 let adapters = [
-  // require('../adapters/km'),
-  // require('../adapters/weisenburger'),
-  // require('../adapters/cuffaro'),
-  // require('../adapters/throm'),
-  // require('../adapters/kassel'),
-  // require('../adapters/artekt'),
-  // require('../adapters/goebelbecker'),
-  // require('../adapters/helblerichter'),
-  // require('../adapters/volkswohnung'),
-  // require('../adapters/immoka'),
-  // require('../adapters/spaka'),
-  // require('../adapters/spaka_haeuser'),
-  // require('../adapters/weststadtmakler'),
-  // require('../adapters/immotrend'),
-  // require('../adapters/gebaka'),
-  // require('../adapters/gig'),
-  // require('../adapters/besserwohnen'),
-  // require('../adapters/haitz'),
-  // require('../adapters/suw'),
-  // require('../adapters/laub'),
-  // require('../adapters/blumenwinkel'),
-  // require('../adapters/neubaukompass'),
-  // require('../adapters/baar'),
-  // require('../adapters/ewg'),
-  // require('../adapters/forum'),
-  // require('../adapters/wipfler'),
+  require('../adapters/km'),
+  require('../adapters/weisenburger'),
+  require('../adapters/cuffaro'),
+  require('../adapters/throm'),
+  require('../adapters/kassel'),
+  require('../adapters/artekt'),
+  require('../adapters/goebelbecker'),
+  require('../adapters/helblerichter'),
+  require('../adapters/volkswohnung'),
+  require('../adapters/immoka'),
+  require('../adapters/spaka'),
+  require('../adapters/spaka_haeuser'),
+  require('../adapters/weststadtmakler'),
+  require('../adapters/immotrend'),
+  require('../adapters/gebaka'),
+  require('../adapters/gig'),
+  require('../adapters/besserwohnen'),
+  require('../adapters/haitz'),
+  require('../adapters/suw'),
+  require('../adapters/laub'),
+  require('../adapters/blumenwinkel'),
+  require('../adapters/neubaukompass'),
+  require('../adapters/baar'),
+  require('../adapters/ewg'),
+  require('../adapters/forum'),
+  require('../adapters/wipfler'),
   require('../adapters/sekundus'),
   require('../adapters/speck'),
 ];
@@ -52,7 +52,7 @@ module.exports.scrapeAll = () => {
     .then(flatResponses => {
       console.log('Scraping done');
       
-      // if (hasNewEntries(flatResponses)) {
+      if (hasNewEntries(flatResponses)) {
         companyService.getCompanies()
           .then(companies => {
             let emptyEntries = getEmptyEntries(flatResponses);
@@ -64,15 +64,14 @@ module.exports.scrapeAll = () => {
             };
             let text = templateService.compileTemplate(templateService.TEMPLATE_NAMES.OFFERS, data);
             
-            console.log(text);
-            // mailService.sendMail(
-            //   'Flatfinder found new offers',
-            //   text
-            // );
+            mailService.sendMail(
+              'Flatfinder found new offers',
+              text
+            );
           });
-      // } else {
-      //   console.log('No new entries');
-      // }
+      } else {
+        console.log('No new entries');
+      }
     })
     .catch(error => {
       mailService.sendMail(

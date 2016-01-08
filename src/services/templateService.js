@@ -32,7 +32,6 @@ function compileOffersTemplate(data) {
   for (let flats of data.flatResponses) {
     
     flats.forEach((flat, index) => {
-      flat.exists = false; //TODO entfernen
       if (!flat.exists) {
         if (index === 0) {
           // add single header for multiple flats of same company
@@ -48,8 +47,7 @@ function compileOffersTemplate(data) {
         
         if (index === flats.length - 1) {
           html += `
-              </ul>
-            <br />
+            </ul>
           `;
         }
       }
