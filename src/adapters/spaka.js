@@ -17,7 +17,7 @@ module.exports.scrape = () => {
 
 function scrapePage(page, flats) {
   let url = `http://www.immocenter-karlsruhe.de/immobilienangebot/eigentumswohnungen/eigentumswohnungen.html?s=${page}`;
-  console.log('Scraping', page);
+  console.log('Scraping', COMPANY_ID, page);
   
   return request(url)
     .then(response => {

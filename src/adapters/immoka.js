@@ -15,7 +15,7 @@ module.exports.scrape = () => {
 
 function scrapePage(page, flats) {
   let url = `http://www.immoka.net/immoka/ctrl/11/11/?11_pmt=3&11_arf=-1.0&11_art=-1.0&11_mtb=1&11_mtr=-1&11_mth=-1&11_mtl=-1&11_prf=-1.0&11_prt=-1.0&11_arf=-1.0&11_art=-1.0&11_frs=-1&11_blt=-1timeLimitedLiving11_tll=0&11_zl=&11_idp=-1&11_idcs=-1&11_idc=-1&11_navp=${page}`;
-  console.log('Scraping', page);
+  console.log('Scraping', COMPANY_ID, page);
   
   return request(url)
     .then(response => {

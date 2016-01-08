@@ -15,7 +15,7 @@ module.exports.scrape = () => {
 
 function scrapePage(page, flats) {
   let url = `http://www.laub-immobilien.de/texte/texte.php?text=1007&mt=M&me=33&art=m&mode=suche&objpage=${page}&f8=&f3=2&f53=&f54=&`;
-  console.log('Scraping', page);
+  console.log('Scraping', COMPANY_ID, page);
   
   return request({
     uri: url,
