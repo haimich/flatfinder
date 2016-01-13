@@ -14,7 +14,7 @@ function getReceivers() {
   if (nconf.get('NODE_ENV') === 'development') {
     return MICHIPIT;
   } else {
-    return MICHIPIT + ' ' + CRISTI;
+    return [MICHIPIT, CRISTI].join(', ');;
   }
 }
 
