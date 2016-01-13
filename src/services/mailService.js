@@ -1,10 +1,22 @@
 'use strict';
 
+let nconf = require('../helpers/configuration').getInstance();
 let nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport();
 
-const TO = 'michipit@gmail.com im.cristina.lica@gmail.com';
-const FROM = TO;
+const MICHIPIT = 'michipit@gmail.com';
+const CRISTI = 'im.cristina.lica@gmail.com';
+
+const TO = getReceivers();
+const FROM = MICHIPIT;
+
+function getReceivers() {
+  if (nconf.get('NODE_ENV') === 'development') {
+    return MICHIPIT;
+  } else {
+    return MICHIPIT + ' ' + CRISTI;
+  }
+}
 
 function sendMail (subject, text) {
   let mail = {

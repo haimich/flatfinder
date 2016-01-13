@@ -31,31 +31,26 @@ function compileOffersTemplate(data) {
   
   for (let flats of data.flatResponses) {
     
-    flats.forEach((flat, index) => {
-      if (!flat.exists) {
-        if (index === 0) {
-          // add single header for multiple flats of same company
-          html += `
-            <h3>${data.companyNames[flat.companyId]}</h3>
-            <ul>
-          `;
-        }
-        
-        html += `
-          <li><a href="${flat.url}">${flat.title}</a></li>
-        `;
-        
-        if (index === flats.length - 1) {
-          html += `
-            </ul>
-          `;
-        }
+    let flatsHtml = '';
+    
+    for (let flat of flats) {
+      if (flat.exists) {
+        continue;
       }
-    });
+      
+      flatsHtml += `<li><a href="${flat.url}">${flat.title}</a></li>`;
+    }
+    
+    if (flatsHtml !== '') {
+      html += `
+        <h3>${data.companyNames[flats[0].companyId]}</h3>
+        <ul>${flatsHtml}</ul>
+      `;
+    }
   }
   
   html += `
-      <h3>Services without offers: ${data.emptyEntries}</h3>
+      <h4>Services without offers: ${data.emptyEntries}</h4>
     </body>
   </html>
   `;
