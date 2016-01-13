@@ -26,7 +26,7 @@ function compileOffersTemplate(data) {
   <html lang=en-us>
     <head><meta charset=utf-8><title>Flatfinder</title></head>
     <body>
-      <h2>Flatfinder 5000<h2>
+      <h2>Flatfinder 5000</h2>
   `;
   
   for (let flats of data.flatResponses) {
