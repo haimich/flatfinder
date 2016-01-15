@@ -39,7 +39,8 @@ let adapters = [
   // require('../adapters/engelvoelkers'),
   // require('../adapters/seegerrusswurm'),
   // require('../adapters/ebaykleinanzeigen'),
-  require('../adapters/heck'),
+  // require('../adapters/heck'),
+  require('../adapters/immowenk'),
 ];
 
 module.exports.scrapeAll = () => {
