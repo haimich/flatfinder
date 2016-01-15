@@ -14,13 +14,16 @@ class FlowfactAdapter {
     
     this.urlSuffix = opts.urlSuffix || '';
     this.hasAbsoluteUrls = opts.hasAbsoluteUrls || false;
+    this.encoding = opts.encoding || 'utf8';
   }
   
   scrape() {
     console.log('Scraping', this.companyId);
     
-    return request(this.baseUrl + this.urlSuffix)
-      .then(response => {
+    return request({
+      uri: this.baseUrl + this.urlSuffix,
+      encoding: this.encoding
+    }).then(response => {
         let flats = [];
         let $ = cheerio.load(response);
         
