@@ -1,30 +1,14 @@
 'use strict';
 
-let request = require('request-promise');
-let cheerio = require('cheerio');
-let Flat = require('../models/Flat');
+let KmAdapter = require('./base/KmAdapter');
 
 const COMPANY_ID = 'km';
-const URL = 'http://www.koehler-und-meinzer.de/aktuelles/im-verkauf/';
 
 module.exports.scrape = () => {
-  console.log('Scraping', COMPANY_ID);
-  return request(URL)
-    .then(response => {
-      let flats = [];
-      let $ = cheerio.load(response);
-      
-      $('form .cc-m-form-checkgroup label div').each((i, el) => {
-        let category = $(el).text().trim();
-        if (category === 'Wohnhäuser:') {
-          $(el).parent().parent().find('.cc-m-form-checkable-vertical label').each((i, el) => {
-            let title = $(el).text().trim();
-            let flat = new Flat(COMPANY_ID, title, URL);
-            flats.push(flat);
-          });
-        }
-      });
-      
-      return flats;
-    }); 
+  let adapter = new KmAdapter(
+    COMPANY_ID,
+    'http://www.koehler-und-meinzer.de/aktuelles/im-verkauf/'
+  );
+  
+  return adapter.scrape();
 }
