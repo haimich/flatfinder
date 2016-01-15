@@ -23,7 +23,6 @@ class SimpleAdapter extends Adapter {
     this.getUrlFromElement = opts.getUrlFromElement || null;
     this.useAbsoluteUrls = opts.useAbsoluteUrls || false;
     this.encoding = opts.encoding || 'utf8';
-    this.useragent = opts.useragent || UA.FIREFOX;
   }
   
   scrape() {
@@ -33,7 +32,7 @@ class SimpleAdapter extends Adapter {
       uri: this.baseUrl + this.urlSuffix,
       encoding: this.encoding,
       headers: {
-        'User-Agent': this.useragent
+        'User-Agent': UA.FIREFOX
       }
     }).then(response => {
         let flats = [];

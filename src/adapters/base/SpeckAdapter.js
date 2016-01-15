@@ -17,7 +17,6 @@ class SpeckAdapter extends Adapter {
     }
     this.useAbsoluteUrls = true;
     this.encoding = 'utf8';
-    this.useragent = UA.FIREFOX;
   }
   
   scrape() {
@@ -27,7 +26,7 @@ class SpeckAdapter extends Adapter {
       uri: this.baseUrl + this.urlSuffix,
       encoding: this.encoding,
       headers: {
-        'User-Agent': this.useragent
+        'User-Agent': UA.FIREFOX
       }
     }).then(response => {
         let flats = [];

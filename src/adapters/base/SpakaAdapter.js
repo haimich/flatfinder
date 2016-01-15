@@ -17,7 +17,6 @@ class SpakaAdapter extends Adapter {
     }
     this.useAbsoluteUrls = true;
     this.encoding = 'utf8';
-    this.useragent = UA.FIREFOX;
     
     this.PER_PAGE = 9;
     this.PRICE_REGEX = /Kaufpreis([0-9.,-]*).*/; 
@@ -36,7 +35,7 @@ class SpakaAdapter extends Adapter {
       uri: this.preparePageUrl(page),
       encoding: this.encoding,
       headers: {
-        'User-Agent': this.useragent
+        'User-Agent': UA.FIREFOX
       }
     }).then(response => {
         let $ = cheerio.load(response);
