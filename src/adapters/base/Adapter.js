@@ -19,6 +19,10 @@ class Adapter {
                            'Industriehalle', 'Anwesen', 'Gaststätte', 
                            'Restaurant', 'Halle' ];
   }
+   
+  preparePageUrl(page) {
+    return this.baseUrl.replace('INSERTPAGE', page)
+  }
   
   extractUrlFromElement($, el, getUrlFromElement) {
     let flatUrl = '';

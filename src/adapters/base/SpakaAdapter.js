@@ -4,25 +4,29 @@ let request = require('request-promise');
 let cheerio = require('cheerio');
 let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
+let UA = require('../../models/UserAgent');
 
-class FlowfactAdapter extends Adapter {
+class SpakaAdapter extends Adapter {
   
-  constructor(companyId, baseUrl) {
-    super(companyId, baseUrl, 'div h3 a');
+  constructor(companyId, baseUrl, searchString, options) {
+    super(companyId, baseUrl, '.estateItem .titleContainer');
     
     this.urlSuffix = '';
-    this.getUrlFromElement = null;
-    this.useAbsoluteUrls = false;
+    this.getUrlFromElement = ($el) => {
+      return $el.parent().find('.imgContainer a').attr('href');
+    }
+    this.useAbsoluteUrls = true;
     this.encoding = 'utf8';
     this.useragent = UA.FIREFOX;
+    
+    this.PER_PAGE = 9;
+    this.PRICE_REGEX = /Kaufpreis([0-9.,-]*).*/; 
   }
   
   scrape() {
-    const STARTPAGE = 1;
-    
     console.log('Scraping', this.companyId);
     let flats = [];
-    return this.scrapePage(STARTPAGE, flats); 
+    return this.scrapePage(0, flats);
   }
   
   scrapePage(page, flats) {
@@ -36,10 +40,10 @@ class FlowfactAdapter extends Adapter {
       }
     }).then(response => {
         let $ = cheerio.load(response);
-        let foundOffers = false;
+        let numberOfOffers = 0;
         
         $(this.searchString).each((i, el) => {
-          foundOffers = true;
+          numberOfOffers += 1;
           let title = $(el).text().trim();
           
           if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
@@ -49,23 +53,17 @@ class FlowfactAdapter extends Adapter {
           let flatUrl = this.extractUrlFromElement($, el, this.getUrlFromElement);
           let url = this.extractUrl(flatUrl, this.baseUrl, this.urlSuffix, this.useAbsoluteUrls);
           
-          let type = $(el).closest('div').find('ul li').first().text().trim();
-          let price = $(el).closest('div').find('ul li').last().text().trim();
-          
-          if (this.isBlacklisted(this.typeBlacklist, type) || 
-              this.isRentAppartment(price) ||
-              this.isBlacklisted(this.titleBlacklist, title)) {
-            return;
-          }
+          let priceText = $(el).parent().find('.showDetails div div').text();
+          let price = this.PRICE_REGEX.exec(priceText)[1];
           
           let flat = new Flat(this.companyId, `${title} (${price})`, url);
           flats.push(flat);
         });
         
-        if (foundOffers) {
-          return this.scrapePage(page + 1, flats); // recurse
+        if (numberOfOffers === this.PER_PAGE) {
+          return this.scrapePage(page + this.PER_PAGE, flats); // recurse
         } else {
-          
+          console.log(flats);
           return flats;
         }
       })
@@ -76,10 +74,6 @@ class FlowfactAdapter extends Adapter {
         return flats;
       });
   }
-  
-  isRentAppartment(text) {
-    return text.indexOf('Miete') >= 0;
-  }
 }
 
-module.exports = FlowfactAdapter;
+module.exports = SpakaAdapter;
