@@ -40,7 +40,6 @@ class SimpleAdapter extends Adapter {
         
         $(this.searchString).each((i, el) => {
           let title = $(el).text().trim();
-          console.log(i);
           
           if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
             return;
