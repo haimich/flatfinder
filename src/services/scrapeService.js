@@ -42,6 +42,7 @@ let adapters = [
   // require('../adapters/heck'),
   // require('../adapters/immowenk'),
   require('../adapters/aniseustachi'),
+  // require('../adapters/immowenk'),
 ];
 
 module.exports.scrapeAll = () => {

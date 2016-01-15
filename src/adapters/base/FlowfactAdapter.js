@@ -5,12 +5,13 @@ let cheerio = require('cheerio');
 let Flat = require('../../models/Flat');
 
 class FlowfactAdapter {
-  constructor(companyId, baseUrl, options) {
-    let opts = options || {};
-    
+  constructor(companyId, baseUrl) {
     this.companyId = companyId;
     this.baseUrl = baseUrl;
-    this.typeBlacklist = opts.typeBlacklist || [];
+    this.typeBlacklist = [ 'Praxisetage', 'Büro', 'Laden', 'Läden',
+                           'Werkstatt', 'Lager', 'Verkaufsfläche',
+                           'Industriehalle', 'Anwesen', 'Gaststätte', 
+                           'Restaurant', 'Halle' ];
   }
   
   scrape() {
@@ -36,19 +37,19 @@ class FlowfactAdapter {
           let flatUrl = $(el).attr('href');
           
           let type = $(el).closest('div').find('ul li').first().text().trim();
-          for (let entry of this.typeBlacklist) {
-            if (type.indexOf(entry) >= 0) {
-              return;
-            }
+          let price = $(el).closest('div').find('ul li').last().text().trim();
+          if (this.containsBlacklistEntry(type) || this.isRentAppartment(price)) {
+            return;
           }
           
-          let flat = new Flat(this.companyId, title, flatUrl);
+          let flat = new Flat(this.companyId, `${title} (${price})`, flatUrl);
           flats.push(flat);
         });
         
         if (foundOffers) {
           return this.scrapePage(page + 1, flats); // recurse
         } else {
+          console.log(flats);
           return flats;
         }
       })
@@ -62,6 +63,18 @@ class FlowfactAdapter {
   
   preparePageUrl(page) {
     return this.baseUrl.replace('INSERTPAGE', page)
+  }
+  
+  containsBlacklistEntry(text) {
+    for (let entry of this.typeBlacklist) {
+      if (text.indexOf(entry) >= 0) {
+        return true;
+      }
+    }
+  }
+  
+  isRentAppartment(text) {
+    return text.indexOf('Miete') >= 0;
   }
 }
 
