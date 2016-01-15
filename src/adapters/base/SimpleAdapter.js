@@ -6,7 +6,7 @@ let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
 let UA = require('../../models/UserAgent');
 
-class FlowfactAdapter extends Adapter {
+class SimpleAdapter extends Adapter {
   /**
    * @param string companyId:        unique id from database
    * @param string baseUrl:          the url of the service
@@ -50,6 +50,7 @@ class FlowfactAdapter extends Adapter {
           let title = $(el).text().trim();
           
           if (this.isBlacklisted(this.titleBlacklist, title)) {
+            console.log('blacklisted');
             return;
           }
           
@@ -62,31 +63,17 @@ class FlowfactAdapter extends Adapter {
             flatUrl = $(el).attr('href');
           }
           
-          let url = this.extractUrl(flatUrl);
+          let url = this.extractUrl(flatUrl, this.baseUrl, this.urlSuffix, this.useAbsoluteUrls);
           
           let flat = new Flat(this.companyId, title, url);
           flats.push(flat);
         });
-        console.log(flats);
+        if (flats.length === 0) {
+            console.log(flats, this.companyId);
+          }
         return flats;
       });
   }
-  
-  extractUrl(text) {
-    let url = '';
-    
-    if (text !== undefined && text !== '') {
-      if (this.useAbsoluteUrls) {
-        url = text;
-      } else {
-        url = this.baseUrl + text;
-      }
-    } else {
-      url = this.baseUrl + this.urlSuffix;
-    }
-    
-    return url;
-  }
 }
 
-module.exports = FlowfactAdapter;
+module.exports = SimpleAdapter;
