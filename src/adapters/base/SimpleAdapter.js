@@ -46,15 +46,7 @@ class SimpleAdapter extends Adapter {
             return;
           }
           
-          let flatUrl = '';
-          if (this.getUrlFromElement) {
-            // url lies in another dom element
-            flatUrl = this.getUrlFromElement($(el));
-          } else {
-            // url lies on same element as the title
-            flatUrl = $(el).attr('href');
-          }
-          
+          let flatUrl = this.extractUrlFromElement($, el, this.getUrlFromElement);
           let url = this.extractUrl(flatUrl, this.baseUrl, this.urlSuffix, this.useAbsoluteUrls);
           
           let flat = new Flat(this.companyId, title, url);

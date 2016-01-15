@@ -7,30 +7,17 @@ let Flat = require('../../models/Flat');
 let UA = require('../../models/UserAgent');
 
 class SpeckAdapter extends Adapter {
-  /**
-   * @param string companyId:        unique id from database
-   * @param string baseUrl:          the url of the service
-   * @param string searchString:     a jQuery style search string to extract the flat titles
-   * @param object options (optional):
-   *        @param string  urlSuffix:         pass optional suffix to add to baseUrl
-   *        @param string  getUrlFromElement: a function that extracts the url from a cheerio object
-   *        @param boolean useAbsoluteUrls:   whether the pages uses absolute urls for their flat links 
-   *        @param string  encoding:          the character encoding used on the site
-   */
-  constructor(companyId, baseUrl, searchString, options) {
-    super();
+  
+  constructor(companyId, baseUrl) {
+    super(companyId, baseUrl, '#content_area div.clearover');
     
-    let opts = options || {};
-    
-    this.companyId = companyId;
-    this.baseUrl = baseUrl;
-    this.searchString = searchString;
-    
-    this.urlSuffix = opts.urlSuffix || '';
-    this.getUrlFromElement = opts.getUrlFromElement || null;
-    this.useAbsoluteUrls = opts.useAbsoluteUrls || false;
-    this.encoding = opts.encoding || 'utf8';
-    this.useragent = opts.useragent || UA.FIREFOX;
+    this.urlSuffix = '';
+    this.getUrlFromElement = ($el) => {
+      return $el.parent().find('a').attr('href');
+    }
+    this.useAbsoluteUrls = true;
+    this.encoding = 'utf8';
+    this.useragent = UA.FIREFOX;
   }
   
   scrape() {
@@ -47,21 +34,13 @@ class SpeckAdapter extends Adapter {
         let $ = cheerio.load(response);
         
         $(this.searchString).each((i, el) => {
-          let title = $(el).text().trim();
+          let title = $(el).find('h2').text().trim();
           
-          if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
+          if (title === '' || this.isBlacklisted(this.titleBlacklist, title) || this.isSold($, el)) {
             return;
           }
           
-          let flatUrl = '';
-          if (this.getUrlFromElement) {
-            // url lies in another dom element
-            flatUrl = this.getUrlFromElement($(el));
-          } else {
-            // url lies on same element as the title
-            flatUrl = $(el).attr('href');
-          }
-          
+          let flatUrl = this.extractUrlFromElement($, el, this.getUrlFromElement);
           let url = this.extractUrl(flatUrl, this.baseUrl, this.urlSuffix, this.useAbsoluteUrls);
           
           let flat = new Flat(this.companyId, title, url);
@@ -71,6 +50,17 @@ class SpeckAdapter extends Adapter {
         console.log(flats, this.companyId);
         return flats;
       });
+  }
+  
+  isSold($, el) {
+    let isSold = false;
+    $(el).find('p strong').each((i, el) => {
+      
+      if ($(el).text().trim().indexOf('V E R K A U F T') !== -1) {
+        isSold = true;
+      }
+    });
+    return isSold;
   }
 }
 

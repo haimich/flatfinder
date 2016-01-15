@@ -19,6 +19,20 @@ class Adapter {
                            'Industriehalle', 'Anwesen', 'Gaststätte', 
                            'Restaurant', 'Halle' ];
   }
+  
+  extractUrlFromElement($, el, getUrlFromElement) {
+    let flatUrl = '';
+    
+    if (getUrlFromElement) {
+      // url lies in another dom element
+      flatUrl = getUrlFromElement($(el));
+    } else {
+      // url lies on same element as the title
+      flatUrl = $(el).attr('href');
+    }
+    
+    return flatUrl;
+  }
     
   extractUrl(text, baseUrl, urlSuffix, useAbsoluteUrls) {
     let url = '';
