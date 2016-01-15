@@ -40,7 +40,8 @@ let adapters = [
   // require('../adapters/seegerrusswurm'),
   // require('../adapters/ebaykleinanzeigen'),
   // require('../adapters/heck'),
-  require('../adapters/immowenk'),
+  // require('../adapters/immowenk'),
+  require('../adapters/aniseustachi'),
 ];
 
 module.exports.scrapeAll = () => {

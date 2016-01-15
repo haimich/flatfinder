@@ -7,6 +7,7 @@ exports.up = (knex, Promise) => {
     knex('companies').insert({ id: 'ebaykleinanzeigen', name: 'Ebay Kleinanzeigen' }),
     knex('companies').insert({ id: 'heck', name: 'Martin Heck' }),
     knex('companies').insert({ id: 'immowenk', name: 'Immowenk' }),
+    knex('companies').insert({ id: 'aniseustachi', name: 'Anis & Eustachi' }),
   ]);
 };
 
@@ -18,5 +19,6 @@ exports.down = (knex, Promise) => {
     knex('companies').where('id', 'ebaykleinanzeigen').delete(),
     knex('companies').where('id', 'heck').delete(),
     knex('companies').where('id', 'immowenk').delete(),
+    knex('companies').where('id', 'aniseustachi').delete(),
   ]);
 };
