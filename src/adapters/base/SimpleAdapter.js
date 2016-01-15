@@ -5,6 +5,16 @@ let cheerio = require('cheerio');
 let Flat = require('../../models/Flat');
 
 class FlowfactAdapter {
+  /**
+   * @param string companyId:        unique id from database
+   * @param string baseUrl:          the url of the service
+   * @param string searchString:     a jQuery style search string to extract the flat titles
+   * @param object options (optional):
+   *        @param string  urlSuffix:         pass optional suffix to add to baseUrl
+   *        @param string  getUrlFromElement: a function that extracts the url from a cheerio object
+   *        @param boolean useAbsoluteUrls:   whether the pages uses absolute urls for their flat links
+   *        @param string  encoding:          the character encoding used on the site
+   */
   constructor(companyId, baseUrl, searchString, options) {
     let opts = options || {};
     
@@ -13,6 +23,7 @@ class FlowfactAdapter {
     this.searchString = searchString;
     
     this.urlSuffix = opts.urlSuffix || '';
+    this.getUrlFromElement = opts.getUrlFromElement || null;
     this.useAbsoluteUrls = opts.useAbsoluteUrls || false;
     this.encoding = opts.encoding || 'utf8';
   }
@@ -29,7 +40,15 @@ class FlowfactAdapter {
         
         $(this.searchString).each((i, el) => {
           let title = $(el).text().trim();
-          let flatUrl = $(el).attr('href');
+          
+          let flatUrl = '';
+          if (this.getUrlFromElement) {
+            // url lies in another dom element
+            flatUrl = this.getUrlFromElement($(el));
+          } else {
+            // url lies on same element as the title
+            flatUrl = $(el).attr('href');
+          }
           
           let url = this.extractUrl(flatUrl);
           
