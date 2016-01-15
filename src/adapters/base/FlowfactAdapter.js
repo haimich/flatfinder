@@ -2,10 +2,13 @@
 
 let request = require('request-promise');
 let cheerio = require('cheerio');
+let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
 
-class FlowfactAdapter {
+class FlowfactAdapter extends Adapter {
   constructor(companyId, baseUrl) {
+    super();
+    
     this.companyId = companyId;
     this.baseUrl = baseUrl;
     this.typeBlacklist = [ 'Praxisetage', 'Büro', 'Laden', 'Läden',
@@ -38,7 +41,7 @@ class FlowfactAdapter {
           
           let type = $(el).closest('div').find('ul li').first().text().trim();
           let price = $(el).closest('div').find('ul li').last().text().trim();
-          if (this.containsBlacklistEntry(type) || this.isRentAppartment(price)) {
+          if (this.isBlacklisted(this.typeBlacklist, type) || this.isRentAppartment(price)) {
             return;
           }
           
@@ -63,14 +66,6 @@ class FlowfactAdapter {
   
   preparePageUrl(page) {
     return this.baseUrl.replace('INSERTPAGE', page)
-  }
-  
-  containsBlacklistEntry(text) {
-    for (let entry of this.typeBlacklist) {
-      if (text.indexOf(entry) >= 0) {
-        return true;
-      }
-    }
   }
   
   isRentAppartment(text) {

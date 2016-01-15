@@ -2,9 +2,10 @@
 
 let request = require('request-promise');
 let cheerio = require('cheerio');
+let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
 
-class FlowfactAdapter {
+class FlowfactAdapter extends Adapter {
   /**
    * @param string companyId:        unique id from database
    * @param string baseUrl:          the url of the service
@@ -17,6 +18,8 @@ class FlowfactAdapter {
    *        @param string  encoding:          the character encoding used on the site
    */
   constructor(companyId, baseUrl, searchString, options) {
+    super();
+    
     let opts = options || {};
     
     this.companyId = companyId;
@@ -43,7 +46,7 @@ class FlowfactAdapter {
         $(this.searchString).each((i, el) => {
           let title = $(el).text().trim();
           
-          if (this.isBlacklisted(title)) {
+          if (this.isBlacklisted(this.titleBlacklist, title)) {
             return;
           }
           
@@ -64,15 +67,6 @@ class FlowfactAdapter {
         console.log(flats);
         return flats;
       });
-  }
-  
-  isBlacklisted(flatTitle) {
-    for (let entry of this.titleBlacklist) {
-      if (flatTitle.indexOf(entry) >= 0) {
-        return true;
-      }
-    }
-    return false;
   }
   
   extractUrl(text) {

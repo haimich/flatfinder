@@ -15,7 +15,7 @@ let adapters = [
   // require('../adapters/artekt'),
   // require('../adapters/goebelbecker'),
   // require('../adapters/helblerichter'),
-  require('../adapters/volkswohnung'),
+  // require('../adapters/volkswohnung'),
   // require('../adapters/immoka'),
   // require('../adapters/spaka'),
   // require('../adapters/spaka_haeuser'),
@@ -40,9 +40,8 @@ let adapters = [
   // require('../adapters/seegerrusswurm'),
   // require('../adapters/ebaykleinanzeigen'),
   // require('../adapters/heck'),
-  // require('../adapters/immowenk'),
+  require('../adapters/immowenk'),
   // require('../adapters/aniseustachi'),
-  // require('../adapters/immowenk'),
 ];
 
 module.exports.scrapeAll = () => {
