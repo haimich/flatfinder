@@ -24,7 +24,14 @@ class FlowfactAdapter {
           let title = $(el).text().trim();
           let flatUrl = $(el).attr('href');
           
-          let flat = new Flat(this.companyId, title, this.baseUrl + flatUrl);
+          let url = '';
+          if (flatUrl !== undefined && flatUrl !== '') {
+            url = this.baseUrl + flatUrl;
+          } else {
+            url = this.baseUrl + this.urlSuffix;
+          }
+          
+          let flat = new Flat(this.companyId, title, url);
           flats.push(flat);
         });
         console.log(flats);
