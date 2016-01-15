@@ -13,7 +13,7 @@ class FlowfactAdapter {
     this.searchString = searchString;
     
     this.urlSuffix = opts.urlSuffix || '';
-    this.hasAbsoluteUrls = opts.hasAbsoluteUrls || false;
+    this.useAbsoluteUrls = opts.useAbsoluteUrls || false;
     this.encoding = opts.encoding || 'utf8';
   }
   
@@ -45,7 +45,7 @@ class FlowfactAdapter {
     let url = '';
     
     if (text !== undefined && text !== '') {
-      if (this.hasAbsoluteUrls) {
+      if (this.useAbsoluteUrls) {
         url = text;
       } else {
         url = this.baseUrl + text;

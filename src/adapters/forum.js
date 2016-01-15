@@ -9,7 +9,7 @@ module.exports.scrape = () => {
     COMPANY_ID,
     'http://www.forum-bautraeger.de/angebote-neubau-und-sanierung/wohnung-zum-kauf/',
     '#main #main-column h5 a', {
-      hasAbsoluteUrls: true
+      useAbsoluteUrls: true
     }
   );
   
