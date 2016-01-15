@@ -6,26 +6,32 @@ let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
 let UA = require('../../models/UserAgent');
 
-class SpakaAdapter extends Adapter {
+class PagedAdapter extends Adapter {
   
+  /**
+   * @param object options (optional):
+   *        @param string  startPage:         the page to start scraping
+   *        @param string  urlSuffix:         pass optional suffix to add to baseUrl
+   *        @param string  getUrlFromElement: a function that extracts the url from a cheerio object
+   *        @param boolean useAbsoluteUrls:   whether the pages uses absolute urls for their flat links 
+   *        @param string  encoding:          the character encoding used on the site
+   */
   constructor(companyId, baseUrl, searchString, options) {
-    super(companyId, baseUrl, '.estateItem .titleContainer');
+    super(companyId, baseUrl, searchString);
     
-    this.urlSuffix = '';
-    this.getUrlFromElement = ($el) => {
-      return $el.parent().find('.imgContainer a').attr('href');
-    }
-    this.useAbsoluteUrls = true;
-    this.encoding = 'utf8';
+    let opts = options || {};
     
-    this.PER_PAGE = 9;
-    this.PRICE_REGEX = /Kaufpreis([0-9.,-]*).*/; 
+    this.startPage = opts.startPage;
+    this.urlSuffix = opts.urlSuffix || '';
+    this.getUrlFromElement = opts.getUrlFromElement || null;
+    this.useAbsoluteUrls = opts.useAbsoluteUrls || false;
+    this.encoding = opts.encoding || 'utf8';
   }
   
   scrape() {
     console.log('Scraping', this.companyId);
     let flats = [];
-    return this.scrapePage(0, flats);
+    return this.scrapePage(this.startPage, flats);
   }
   
   scrapePage(page, flats) {
@@ -39,10 +45,10 @@ class SpakaAdapter extends Adapter {
       }
     }).then(response => {
         let $ = cheerio.load(response);
-        let numberOfOffers = 0;
+        let foundOffers = false;
         
         $(this.searchString).each((i, el) => {
-          numberOfOffers += 1;
+          foundOffers = true;
           let title = $(el).text().trim();
           
           if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
@@ -59,14 +65,13 @@ class SpakaAdapter extends Adapter {
           flats.push(flat);
         });
         
-        if (numberOfOffers === this.PER_PAGE) {
+        if (foundOffers) {
           return this.scrapePage(page + this.PER_PAGE, flats); // recurse
         } else {
-          console.log(flats);
           return flats;
         }
       });
   }
 }
 
-module.exports = SpakaAdapter;
+module.exports = PagedAdapter;

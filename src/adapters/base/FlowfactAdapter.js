@@ -68,12 +68,6 @@ class FlowfactAdapter extends Adapter {
           
           return flats;
         }
-      })
-      .catch((error) => {
-        if (error.statusCode !== 404) {
-          console.log('Got error', error);
-        }
-        return flats;
       });
   }
   
