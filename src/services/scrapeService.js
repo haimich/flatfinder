@@ -37,7 +37,7 @@ let adapters = [
   // require('../adapters/speck'),
   // require('../adapters/leitgieb'),
   // require('../adapters/engelvoelkers'),
-  require('../adapters/'),
+  require('../adapters/seegerrusswurm'),
 ];
 
 module.exports.scrapeAll = () => {
