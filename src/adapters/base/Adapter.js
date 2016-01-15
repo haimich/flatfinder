@@ -8,7 +8,7 @@ class Adapter {
   
   isBlacklisted(blacklist, text) {
     for (let entry of blacklist) {
-      if (text.indexOf(entry) >= 0) {
+      if (text.toLowerCase().indexOf(entry.toLowerCase()) >= 0) {
         return true;
       }
     }
