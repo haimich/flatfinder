@@ -36,3 +36,43 @@ describe('isBlacklisted', () => {
     
   });
 });
+
+describe('extractUrl', () => {
+    
+  it('should extract the url correctly', () => {
+    let text = '/expose/123.html';
+    let baseUrl = 'https://www.google.de';
+    let urlSuffix = '/abc?page=1';
+    let useAbsoluteUrls = false;
+    
+    new Adapter().extractUrl(text, baseUrl, urlSuffix, useAbsoluteUrls).should.equal('https://www.google.de/expose/123.html');
+  });
+  
+  it('should work when no urlSuffix is given', () => {
+    let text = '/expose/123.html';
+    let baseUrl = 'https://www.google.de';
+    let urlSuffix = '';
+    let useAbsoluteUrls = false;
+    
+    new Adapter().extractUrl(text, baseUrl, urlSuffix, useAbsoluteUrls).should.equal('https://www.google.de/expose/123.html');
+  });
+  
+  it('should work for absolute urls', () => {
+    let text = 'https://www.yahoo.de/expose/123.html';
+    let baseUrl = 'https://www.google.de';
+    let urlSuffix = '';
+    let useAbsoluteUrls = true;
+    
+    new Adapter().extractUrl(text, baseUrl, urlSuffix, useAbsoluteUrls).should.equal('https://www.yahoo.de/expose/123.html');
+  });
+  
+  it('should work when no url is given', () => {
+    let text = '';
+    let baseUrl = 'https://www.google.de';
+    let urlSuffix = '/abc?page=1';
+    let useAbsoluteUrls = false;
+    
+    new Adapter().extractUrl(text, baseUrl, urlSuffix, useAbsoluteUrls).should.equal('https://www.google.de/abc?page=1');
+  });
+    
+});

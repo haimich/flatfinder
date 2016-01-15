@@ -8,7 +8,11 @@
     "npm": ">=3.0.0"
   },
   "scripts": {
-    "start": "node src/main.js"
+    "prestart": "knex migrate:latest",
+    "start": "node src/main.js",
+    "watch": "nodemon src/main.js",
+    "test": "mocha test/**/*.js",
+    "watch:test": "chokidar *.js src/*.js src/**/*.js test/**/*.js test/*.js -c 'npm test'"
   },
   "repository": {
     "type": "git",
@@ -31,5 +35,10 @@
     "pg": "^4.4.3",
     "request-promise": "^1.0.2",
     "sqlite3": "^3.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "chokidar-cli": "^1.2.0",
+    "mocha": "^2.3.4"
   }
 }
