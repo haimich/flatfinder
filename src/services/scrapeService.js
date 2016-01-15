@@ -23,7 +23,7 @@ let adapters = [
   // require('../adapters/immotrend'),
   // require('../adapters/gebaka'),
   // require('../adapters/gig'),
-  // require('../adapters/besserwohnen'),
+  require('../adapters/besserwohnen'),
   // require('../adapters/haitz'),
   // require('../adapters/suw'),
   // require('../adapters/laub'),
@@ -40,7 +40,7 @@ let adapters = [
   // require('../adapters/seegerrusswurm'),
   // require('../adapters/ebaykleinanzeigen'),
   // require('../adapters/heck'),
-  require('../adapters/immowenk'),
+  // require('../adapters/immowenk'),
   // require('../adapters/aniseustachi'),
 ];
 
