@@ -2,8 +2,22 @@
 
 class Adapter {
   
-  constructor() {
+  /**
+   * @param string companyId:        unique id from database
+   * @param string baseUrl:          the url of the service
+   * @param string searchString:     a jQuery style search string to extract the flat titles
+   */
+  constructor(companyId, baseUrl, searchString) {
+    this.companyId = companyId;
+    this.baseUrl = baseUrl;
+    this.searchString = searchString;
+    
     this.titleBlacklist = [ 'verkauft', 'keine Angebote' ];
+    
+    this.typeBlacklist = [ 'Praxisetage', 'Büro', 'Laden', 'Läden',
+                           'Werkstatt', 'Lager', 'Verkaufsfläche',
+                           'Industriehalle', 'Anwesen', 'Gaststätte', 
+                           'Restaurant', 'Halle' ];
   }
     
   extractUrl(text, baseUrl, urlSuffix, useAbsoluteUrls) {

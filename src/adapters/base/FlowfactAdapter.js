@@ -7,14 +7,7 @@ let Flat = require('../../models/Flat');
 
 class FlowfactAdapter extends Adapter {
   constructor(companyId, baseUrl) {
-    super();
-    
-    this.companyId = companyId;
-    this.baseUrl = baseUrl;
-    this.typeBlacklist = [ 'Praxisetage', 'Büro', 'Laden', 'Läden',
-                           'Werkstatt', 'Lager', 'Verkaufsfläche',
-                           'Industriehalle', 'Anwesen', 'Gaststätte', 
-                           'Restaurant', 'Halle' ];
+    super(companyId, baseUrl, 'div h3 a');
   }
   
   scrape() {
@@ -34,7 +27,7 @@ class FlowfactAdapter extends Adapter {
         let $ = cheerio.load(response);
         let foundOffers = false;
         
-        $('div h3 a').each((i, el) => {
+        $(this.searchString).each((i, el) => {
           foundOffers = true;
           let title = $(el).text().trim();
           let flatUrl = $(el).attr('href');

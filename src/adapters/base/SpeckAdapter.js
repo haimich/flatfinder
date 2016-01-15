@@ -6,8 +6,11 @@ let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
 let UA = require('../../models/UserAgent');
 
-class SimpleAdapter extends Adapter {
+class SpeckAdapter extends Adapter {
   /**
+   * @param string companyId:        unique id from database
+   * @param string baseUrl:          the url of the service
+   * @param string searchString:     a jQuery style search string to extract the flat titles
    * @param object options (optional):
    *        @param string  urlSuffix:         pass optional suffix to add to baseUrl
    *        @param string  getUrlFromElement: a function that extracts the url from a cheerio object
@@ -15,9 +18,13 @@ class SimpleAdapter extends Adapter {
    *        @param string  encoding:          the character encoding used on the site
    */
   constructor(companyId, baseUrl, searchString, options) {
-    super(companyId, baseUrl, searchString);
+    super();
     
     let opts = options || {};
+    
+    this.companyId = companyId;
+    this.baseUrl = baseUrl;
+    this.searchString = searchString;
     
     this.urlSuffix = opts.urlSuffix || '';
     this.getUrlFromElement = opts.getUrlFromElement || null;
@@ -67,4 +74,4 @@ class SimpleAdapter extends Adapter {
   }
 }
 
-module.exports = SimpleAdapter;
+module.exports = SpeckAdapter;
