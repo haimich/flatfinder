@@ -4,6 +4,7 @@ let request = require('request-promise');
 let cheerio = require('cheerio');
 let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
+let UA = require('../../models/UserAgent');
 
 class FlowfactAdapter extends Adapter {
   /**
@@ -29,6 +30,7 @@ class FlowfactAdapter extends Adapter {
     this.getUrlFromElement = opts.getUrlFromElement || null;
     this.useAbsoluteUrls = opts.useAbsoluteUrls || false;
     this.encoding = opts.encoding || 'utf8';
+    this.useragent = opts.useragent || UA.FIREFOX;
   }
   
   scrape() {
@@ -36,7 +38,10 @@ class FlowfactAdapter extends Adapter {
     
     return request({
       uri: this.baseUrl + this.urlSuffix,
-      encoding: this.encoding
+      encoding: this.encoding,
+      headers: {
+        'User-Agent': this.useragent
+      }
     }).then(response => {
         let flats = [];
         let $ = cheerio.load(response);

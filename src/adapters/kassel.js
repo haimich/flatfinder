@@ -1,36 +1,18 @@
 'use strict';
 
-let request = require('request-promise');
-let cheerio = require('cheerio');
-let Flat = require('../models/Flat');
+let SimpleAdapter = require('./base/SimpleAdapter');
 let UA = require('../models/UserAgent');
 
 const COMPANY_ID = 'kassel';
-const URL = 'https://www.facebook.com/ImmobilienKassel?_fb_noscript=1';
 
 module.exports.scrape = () => {
-  console.log('Scraping', COMPANY_ID);
-  return request({
-      method: 'GET', 
-      uri: URL,
-      headers: {
-        'User-Agent': UA.FIREFOX //we have to fake the ua to get the desired result
-      }
-    })
-    .then(response => {
-      let flats = [];
-      let $ = cheerio.load(response);
-      
-      $('.userContent').each((i, el) => {
-        let title = $(el).text().trim();
-        if (title === '') {
-          return;
-        }
-        
-        let flat = new Flat(COMPANY_ID, title, URL);
-        flats.push(flat);
-      });
-      
-      return flats;
-    }); 
+  let adapter = new SimpleAdapter(
+    COMPANY_ID,
+    'https://www.facebook.com/ImmobilienKassel?_fb_noscript=1',
+    '.userContent', {
+      useragent: UA.FIREFOX //we have to fake the ua to get the desired result
+    }
+  );
+  
+  return adapter.scrape();
 }

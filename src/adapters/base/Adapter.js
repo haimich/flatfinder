@@ -3,7 +3,7 @@
 class Adapter {
   
   constructor() {
-    this.titleBlacklist = [ 'verkauft', 'keine Angebote' ];
+    this.titleBlacklist = [ 'verkauft', 'keine Angebote', '' ];
   }
   
   isBlacklisted(blacklist, text) {
