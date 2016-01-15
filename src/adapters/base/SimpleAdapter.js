@@ -13,8 +13,7 @@ class FlowfactAdapter extends Adapter {
    * @param object options (optional):
    *        @param string  urlSuffix:         pass optional suffix to add to baseUrl
    *        @param string  getUrlFromElement: a function that extracts the url from a cheerio object
-   *        @param boolean useAbsoluteUrls:   whether the pages uses absolute urls for their flat links
-   *        @param array   titleBlackList:    flats whose title includes one of these words will be excluded 
+   *        @param boolean useAbsoluteUrls:   whether the pages uses absolute urls for their flat links 
    *        @param string  encoding:          the character encoding used on the site
    */
   constructor(companyId, baseUrl, searchString, options) {
@@ -29,7 +28,6 @@ class FlowfactAdapter extends Adapter {
     this.urlSuffix = opts.urlSuffix || '';
     this.getUrlFromElement = opts.getUrlFromElement || null;
     this.useAbsoluteUrls = opts.useAbsoluteUrls || false;
-    this.titleBlacklist = opts.titleBlacklist || [];
     this.encoding = opts.encoding || 'utf8';
   }
   

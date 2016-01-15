@@ -41,7 +41,10 @@ class FlowfactAdapter extends Adapter {
           
           let type = $(el).closest('div').find('ul li').first().text().trim();
           let price = $(el).closest('div').find('ul li').last().text().trim();
-          if (this.isBlacklisted(this.typeBlacklist, type) || this.isRentAppartment(price)) {
+          
+          if (this.isBlacklisted(this.typeBlacklist, type) || 
+              this.isRentAppartment(price) ||
+              this.isBlacklisted(this.titleBlacklist, title)) {
             return;
           }
           

@@ -2,6 +2,10 @@
 
 class Adapter {
   
+  constructor() {
+    this.titleBlacklist = [ 'verkauft', 'keine Angebote' ];
+  }
+  
   isBlacklisted(blacklist, text) {
     for (let entry of blacklist) {
       if (text.indexOf(entry) >= 0) {
