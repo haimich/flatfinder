@@ -5,11 +5,15 @@ let cheerio = require('cheerio');
 let Flat = require('../../models/Flat');
 
 class FlowfactAdapter {
-  constructor(companyId, baseUrl, urlSuffix, searchString) {
+  constructor(companyId, baseUrl, searchString, options) {
+    let opts = options || {};
+    
     this.companyId = companyId;
     this.baseUrl = baseUrl;
-    this.urlSuffix = urlSuffix || '';
     this.searchString = searchString;
+    
+    this.urlSuffix = opts.urlSuffix || '';
+    this.hasAbsoluteUrls = opts.hasAbsoluteUrls || false;
   }
   
   scrape() {
@@ -24,12 +28,7 @@ class FlowfactAdapter {
           let title = $(el).text().trim();
           let flatUrl = $(el).attr('href');
           
-          let url = '';
-          if (flatUrl !== undefined && flatUrl !== '') {
-            url = this.baseUrl + flatUrl;
-          } else {
-            url = this.baseUrl + this.urlSuffix;
-          }
+          let url = this.extractUrl(flatUrl);
           
           let flat = new Flat(this.companyId, title, url);
           flats.push(flat);
@@ -37,6 +36,22 @@ class FlowfactAdapter {
         console.log(flats);
         return flats;
       }); 
+  }
+  
+  extractUrl(text) {
+    let url = '';
+    
+    if (text !== undefined && text !== '') {
+      if (this.hasAbsoluteUrls) {
+        url = text;
+      } else {
+        url = this.baseUrl + text;
+      }
+    } else {
+      url = this.baseUrl + this.urlSuffix;
+    }
+    
+    return url;
   }
 }
 
