@@ -49,8 +49,7 @@ class SimpleAdapter extends Adapter {
         $(this.searchString).each((i, el) => {
           let title = $(el).text().trim();
           
-          if (this.isBlacklisted(this.titleBlacklist, title)) {
-            console.log('blacklisted');
+          if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
             return;
           }
           
@@ -68,9 +67,8 @@ class SimpleAdapter extends Adapter {
           let flat = new Flat(this.companyId, title, url);
           flats.push(flat);
         });
-        if (flats.length === 0) {
-            console.log(flats, this.companyId);
-          }
+        
+        console.log(flats, this.companyId);
         return flats;
       });
   }

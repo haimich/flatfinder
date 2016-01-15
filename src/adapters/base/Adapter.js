@@ -3,7 +3,7 @@
 class Adapter {
   
   constructor() {
-    this.titleBlacklist = [ 'verkauft', 'keine Angebote', '' ];
+    this.titleBlacklist = [ 'verkauft', 'keine Angebote' ];
   }
     
   extractUrl(text, baseUrl, urlSuffix, useAbsoluteUrls) {

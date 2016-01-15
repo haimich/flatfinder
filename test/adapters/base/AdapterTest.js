@@ -18,6 +18,12 @@ describe('isBlacklisted', () => {
       new Adapter().isBlacklisted(blacklist, 'bla foo sol priceless bla').should.be.true;
     });
     
+    it('should ignore case', () => {
+      let blacklist = ['soLD', 'PRICEless'];
+      
+      new Adapter().isBlacklisted(blacklist, 'bla foo sold priceless bla').should.be.true;
+    });
+    
   });
   
   describe('when not matching', () => {
