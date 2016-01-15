@@ -14,7 +14,7 @@ app.get('/scrape', (request, response) => {
       response.send(flats);
     })
     .catch((err) => {
-      console.error(err);
+      console.error(err, err.stack);
       response.send('Error ' + err);
     });
 });

@@ -13,6 +13,7 @@ class FlowfactAdapter {
    *        @param string  urlSuffix:         pass optional suffix to add to baseUrl
    *        @param string  getUrlFromElement: a function that extracts the url from a cheerio object
    *        @param boolean useAbsoluteUrls:   whether the pages uses absolute urls for their flat links
+   *        @param array   titleBlackList:    flats whose title includes one of these words will be excluded 
    *        @param string  encoding:          the character encoding used on the site
    */
   constructor(companyId, baseUrl, searchString, options) {
@@ -25,6 +26,7 @@ class FlowfactAdapter {
     this.urlSuffix = opts.urlSuffix || '';
     this.getUrlFromElement = opts.getUrlFromElement || null;
     this.useAbsoluteUrls = opts.useAbsoluteUrls || false;
+    this.titleBlacklist = opts.titleBlacklist || [];
     this.encoding = opts.encoding || 'utf8';
   }
   
@@ -40,6 +42,10 @@ class FlowfactAdapter {
         
         $(this.searchString).each((i, el) => {
           let title = $(el).text().trim();
+          
+          if (this.isBlacklisted(title)) {
+            return;
+          }
           
           let flatUrl = '';
           if (this.getUrlFromElement) {
@@ -57,7 +63,16 @@ class FlowfactAdapter {
         });
         console.log(flats);
         return flats;
-      }); 
+      });
+  }
+  
+  isBlacklisted(flatTitle) {
+    for (let entry of this.titleBlacklist) {
+      if (flatTitle.indexOf(entry) >= 0) {
+        return true;
+      }
+    }
+    return false;
   }
   
   extractUrl(text) {

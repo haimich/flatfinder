@@ -8,7 +8,9 @@ module.exports.scrape = () => {
   let adapter = new SimpleAdapter(
     COMPANY_ID,
     'https://www.volkswohnung.com/angebote/kaufen/',
-    '.tx-offers'
+    '.tx-offers', {
+      titleBlacklist: [ 'keine Angebote' ]
+    }
   );
   
   return adapter.scrape();
