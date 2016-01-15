@@ -4,17 +4,17 @@ let request = require('request-promise');
 let cheerio = require('cheerio');
 let Flat = require('../models/Flat');
 
-const COMPANY_ID = 'ebaykleinanzeigen';
-const URL = 'https://www.ebay-kleinanzeigen.de';
+const COMPANY_ID = 'heck';
+const URL = 'http://www.heck-immobilien.de';
 
 module.exports.scrape = () => {
   console.log('Scraping', COMPANY_ID);
-  return request(URL + '/s-wohnung-kaufen/karlsruhe/anzeige:angebote/preis:280000:500000/c196l9186+wohnung_kaufen.qm_i:100,160+wohnung_kaufen.zimmer_i:3,')
+  return request(URL + '/immobilien-angebote/eigentumswohnungen/')
     .then(response => {
       let flats = [];
       let $ = cheerio.load(response);
       
-      $('#srchrslt-content article h2 a').each((i, el) => {
+      $('#content .realestate .title a').each((i, el) => {
         let title = $(el).text().trim();
         let flatUrl = $(el).attr('href');
         
