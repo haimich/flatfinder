@@ -29,7 +29,7 @@ let adapters = [
   // require('../adapters/laub'),
   // require('../adapters/blumenwinkel'),
   // require('../adapters/neubaukompass'),
-  // require('../adapters/baar'),
+  require('../adapters/baar'),
   // require('../adapters/ewg'),
   // require('../adapters/forum'),
   // require('../adapters/wipfler'),
@@ -41,7 +41,7 @@ let adapters = [
   // require('../adapters/ebaykleinanzeigen'),
   // require('../adapters/heck'),
   // require('../adapters/immowenk'),
-  require('../adapters/aniseustachi'),
+  // require('../adapters/aniseustachi'),
   // require('../adapters/immowenk'),
 ];
 
