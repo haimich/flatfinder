@@ -1,0 +1,68 @@
+'use strict';
+
+let request = require('request-promise');
+let cheerio = require('cheerio');
+let Flat = require('../../models/Flat');
+
+class FlowfactAdapter {
+  constructor(companyId, baseUrl, options) {
+    let opts = options || {};
+    
+    this.companyId = companyId;
+    this.baseUrl = baseUrl;
+    this.typeBlacklist = opts.typeBlacklist || [];
+  }
+  
+  scrape() {
+    const STARTPAGE = 1;
+    
+    console.log('Scraping', this.companyId);
+    let flats = [];
+    return this.scrapePage(STARTPAGE, flats); 
+  }
+  
+  scrapePage(page, flats) {
+    console.log('Scraping', this.companyId, page);
+    let url = this.preparePageUrl(page);
+
+    return request(url)
+      .then(response => {
+        let $ = cheerio.load(response);
+        let foundOffers = false;
+        
+        $('div h3 a').each((i, el) => {
+          foundOffers = true;
+          let title = $(el).text().trim();
+          let flatUrl = $(el).attr('href');
+          
+          let type = $(el).closest('div').find('ul li').first().text().trim();
+          for (let entry of this.typeBlacklist) {
+            if (type.indexOf(entry) >= 0) {
+              return;
+            }
+          }
+          
+          let flat = new Flat(this.companyId, title, flatUrl);
+          flats.push(flat);
+        });
+        
+        if (foundOffers) {
+          return this.scrapePage(page + 1, flats); // recurse
+        } else {
+          return flats;
+        }
+      })
+      .catch((error) => {
+        if (error.statusCode !== 404) {
+          console.log('Got error', error);
+        }
+        return flats;
+      });
+  }
+  
+  preparePageUrl(page) {
+    return this.baseUrl.replace('INSERTPAGE', page)
+  }
+}
+
+module.exports = FlowfactAdapter;
