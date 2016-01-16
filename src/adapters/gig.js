@@ -2,11 +2,9 @@
 
 let GigAdapter = require('./base/GigAdapter');
 
-const COMPANY_ID = 'gig';
-
 module.exports.scrape = () => {
   let adapter = new GigAdapter(
-    COMPANY_ID,
+    'gig',
     'http://www.giggmbh.de/'
   );
   

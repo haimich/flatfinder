@@ -2,11 +2,9 @@
 
 let FlowfactAdapter = require('./base/FlowfactAdapter');
 
-const COMPANY_ID = 'aniseustachi';
-
 module.exports.scrape = () => {
   let adapter = new FlowfactAdapter(
-    COMPANY_ID,
+    'aniseustachi',
     'http://541509.flowfact-sites.net/immoframe/?pageno=INSERTPAGE'
   );
   

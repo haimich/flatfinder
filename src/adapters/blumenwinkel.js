@@ -2,11 +2,9 @@
 
 let SimpleAdapter = require('./base/SimpleAdapter');
 
-const COMPANY_ID = 'blumenwinkel';
-
 module.exports.scrape = () => {
   let adapter = new SimpleAdapter(
-    COMPANY_ID,
+    'blumenwinkel',
     'http://www.blumenwinkel.com/',
     '.row .grid_6 h3', {
       urlSuffix: '2-0-aktuelle-Projekte.html',

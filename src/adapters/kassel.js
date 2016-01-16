@@ -2,14 +2,13 @@
 
 let SimpleAdapter = require('./base/SimpleAdapter');
 
-const COMPANY_ID = 'kassel';
 const URL_REGEX = /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ig; // might match too much!
 
 let baseUrl = 'https://www.facebook.com/ImmobilienKassel?_fb_noscript=1';
 
 module.exports.scrape = () => {
   let adapter = new SimpleAdapter(
-    COMPANY_ID,
+    'kassel',
     baseUrl,
     '.userContent', {
       useAbsoluteUrls: true,

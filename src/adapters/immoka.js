@@ -2,11 +2,9 @@
 
 let ImmokaAdapter = require('./base/ImmokaAdapter');
 
-const COMPANY_ID = 'immoka';
-
 module.exports.scrape = () => {
   let adapter = new ImmokaAdapter(
-    COMPANY_ID,
+    'immoka',
     'http://www.immoka.net'
   );
   

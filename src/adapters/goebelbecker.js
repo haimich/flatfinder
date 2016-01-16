@@ -2,11 +2,9 @@
 
 let SimpleAdapter = require('./base/SimpleAdapter');
 
-const COMPANY_ID = 'goebelbecker';
-
 module.exports.scrape = () => {
   let adapter = new SimpleAdapter(
-    COMPANY_ID,
+    'goebelbecker',
     'http://www.goebelbecker-bau.de/',
     '#menu .second li a', {
       encoding: 'binary'

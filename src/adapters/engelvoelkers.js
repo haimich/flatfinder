@@ -2,11 +2,9 @@
 
 let SimpleAdapter = require('./base/SimpleAdapter');
 
-const COMPANY_ID = 'engelvoelkers';
-
 module.exports.scrape = () => {
   let adapter = new SimpleAdapter(
-    COMPANY_ID,
+    'engelvoelkers',
     'https://www.engelvoelkers.com',
     '#results .residential-buy .item_details h2', {
       urlSuffix: '/search?startIndex=0&businessArea=&q=&facets=bsnssr%3Aresidential%3Bcntry%3Agermany%3Bdstrct%3Akarlsruhe%3Bobjcttyp%3Acondo%3Brgn%3Abaden_wuerttem%3Brms%3A[3+TO+7]%3Btyp%3Abuy%3Blvngspc%3A[100+TO+304]%3B&pageSize=10&language=de&view=LISTE',

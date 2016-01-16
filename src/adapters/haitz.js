@@ -2,11 +2,9 @@
 
 let SimpleAdapter = require('./base/SimpleAdapter');
 
-const COMPANY_ID = 'haitz';
-
 module.exports.scrape = () => {
   let adapter = new SimpleAdapter(
-    COMPANY_ID,
+    'haitz',
     'http://www.haitz-gmbh.de/',
     '#content .csc-textpicHeader', {
       urlSuffix: 'index.php?id=7',
