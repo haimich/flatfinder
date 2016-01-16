@@ -6,26 +6,19 @@ let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
 let UA = require('../../models/UserAgent');
 
-class PagedAdapter extends Adapter {
+class HustherboldAdapter extends Adapter {
   
-  /**
-   * @param object options (optional):
-   *        @param string  startPage:         the page to start scraping
-   *        @param string  urlSuffix:         pass optional suffix to add to baseUrl
-   *        @param string  getUrlFromElement: a function that extracts the url from a cheerio object
-   *        @param boolean useAbsoluteUrls:   whether the pages uses absolute urls for their flat links 
-   *        @param string  encoding:          the character encoding used on the site
-   */
-  constructor(companyId, baseUrl, searchString, options) {
-    super(companyId, baseUrl, searchString);
+  constructor(companyId, baseUrl) {
+    super(companyId, baseUrl, 'h2.nb-maklerTool-objectList-item-headline');
     
-    let opts = options || {};
-    
-    this.startPage = opts.startPage;
-    this.urlSuffix = opts.urlSuffix || '';
-    this.getUrlFromElement = opts.getUrlFromElement || null;
-    this.useAbsoluteUrls = opts.useAbsoluteUrls || false;
-    this.encoding = opts.encoding || 'utf8';
+    this.startPage = 1;
+    this.PER_PAGE = 9;
+    this.urlSuffix = 'immobilienangebote/kaufen/seite/INSERTPAGE/';
+    this.getUrlFromElement = ($el) => {
+      return $el.closest('.offer').find('a').first().attr('href');
+    };
+    this.useAbsoluteUrls = false;
+    this.encoding = 'utf8';
   }
   
   scrape() {
@@ -38,17 +31,18 @@ class PagedAdapter extends Adapter {
     console.log('Scraping', this.companyId, page);
     
     return request({
-      uri: this.preparePageUrl(page, this.baseUrl),
+      uri: this.preparePageUrl(page, this.baseUrl + this.urlSuffix),
       encoding: this.encoding,
       headers: {
         'User-Agent': UA.FIREFOX
       }
     }).then(response => {
         let $ = cheerio.load(response);
-        let foundOffers = false;
+        let offerCount = 0;
         
         $(this.searchString).each((i, el) => {
-          foundOffers = true;
+          offerCount++;
+          
           let title = $(el).text().trim();
           
           if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
@@ -62,7 +56,7 @@ class PagedAdapter extends Adapter {
           flats.push(flat);
         });
         
-        if (foundOffers) {
+        if (offerCount === this.PER_PAGE) {
           return this.scrapePage(page + 1, flats); // recurse
         } else {
           console.log(flats);
@@ -72,4 +66,4 @@ class PagedAdapter extends Adapter {
   }
 }
 
-module.exports = PagedAdapter;
+module.exports = HustherboldAdapter;
