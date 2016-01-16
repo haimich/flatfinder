@@ -22,8 +22,7 @@ module.exports.getInstance = () => {
       'mailgun_url': '',
       'mailgun_user': 'api',
       'mailgun_key': '',
-      'mailgun_to_dev': '',
-      'mailgun_to_prod': ''
+      'mailgun_to': ''
     });
     
     instance = nconf;

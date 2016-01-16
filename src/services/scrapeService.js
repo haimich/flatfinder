@@ -13,7 +13,7 @@ let adapters = [
   require('../adapters/besserwohnen'),
   require('../adapters/blumenwinkel'),
   require('../adapters/cuffaro'),
-  require('../adapters/ebaykleinanzeigen'),
+  // require('../adapters/ebaykleinanzeigen'),
   require('../adapters/engelvoelkers'),
   require('../adapters/ewg'),
   require('../adapters/forum'),

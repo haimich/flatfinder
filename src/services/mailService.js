@@ -3,19 +3,11 @@
 let nconf = require('../providers/configuration').getInstance();
 let request = require('request-promise');
 
-function getReceivers() {
-  let receivers = '';
-  
-  if (nconf.get('NODE_ENV') === 'development') {
-    receivers = nconf.get('mailgun_to_dev');
-  } else {
-    receivers = nconf.get('mailgun_to_prod');
-  }
-  
-  return receivers;
-}
-
 function sendMail(subject, text) {
+  if (nconf.get('NODE_ENV') === 'development') {
+    console.log(subject, text);
+    return;
+  }
   return request({
     method: 'POST',
     uri: nconf.get('mailgun_url'),
@@ -25,7 +17,7 @@ function sendMail(subject, text) {
     },
     form: {
       from: `Flat Finder <mail@flatfinder.de>`,
-      to: getReceivers(),
+      to: nconf.get('mailgun_to'),
       subject: subject,
       html: text
     }

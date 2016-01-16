@@ -10,6 +10,5 @@ Your account data have to be passed in as environment variables:
 mailgun_url      // eg. https://api.mailgun.net/v3/yourdomain.mailgun.org/messages
 mailgun_user     // eg. api
 mailgun_key      // eg. key-asd213102ad
-mailgun_to_dev   // eg. mrdeveloper@web.de
-mailgun_to_prod  // eg. family@gmail.com
+mailgun_to       // eg. mrdeveloper@web.de
 ```
