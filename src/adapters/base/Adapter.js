@@ -20,10 +20,10 @@ class Adapter {
                            'Restaurant', 'Halle' ];
   }
    
-  preparePageUrl(page) {
-    let url = this.baseUrl;
-    if (this.urlSuffix !== '') {
-      url += this.urlSuffix;
+  preparePageUrl(page, baseUrl, urlSuffix) {
+    let url = baseUrl
+    if (urlSuffix !== undefined && urlSuffix !== '') {
+      url += urlSuffix;
     }
     return url.replace('INSERTPAGE', page)
   }

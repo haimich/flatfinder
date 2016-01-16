@@ -52,7 +52,6 @@ class SimpleAdapter extends Adapter {
           flats.push(flat);
         });
         
-        console.log(flats, this.companyId);
         return flats;
       });
   }

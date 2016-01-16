@@ -67,7 +67,6 @@ class GigAdapter extends Adapter {
         }
       });
       
-      console.log(flats);
       return flats;
     });
   }

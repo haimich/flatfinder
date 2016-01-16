@@ -38,7 +38,7 @@ class PagedAdapter extends Adapter {
     console.log('Scraping', this.companyId, page);
     
     return request({
-      uri: this.preparePageUrl(page),
+      uri: this.preparePageUrl(page, this.baseUrl),
       encoding: this.encoding,
       headers: {
         'User-Agent': UA.FIREFOX

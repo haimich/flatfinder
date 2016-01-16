@@ -34,7 +34,7 @@ class SpakaAdapter extends Adapter {
     console.log('Scraping', this.companyId, page);
     
     return request({
-      uri: this.preparePageUrl(page),
+      uri: this.preparePageUrl(page, this.baseUrl),
       encoding: this.encoding,
       headers: {
         'User-Agent': UA.FIREFOX
@@ -64,7 +64,6 @@ class SpakaAdapter extends Adapter {
         if (numberOfOffers === this.PER_PAGE) {
           return this.scrapePage(page + this.PER_PAGE, flats); // recurse
         } else {
-          console.log(flats);
           return flats;
         }
       });

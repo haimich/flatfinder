@@ -29,7 +29,7 @@ class ImmokaAdapter extends Adapter {
     console.log('Scraping', this.companyId, page);
     
     return request({
-      uri: this.preparePageUrl(page),
+      uri: this.preparePageUrl(page, this.baseUrl),
       encoding: this.encoding,
       headers: {
         'User-Agent': UA.FIREFOX
@@ -56,7 +56,6 @@ class ImmokaAdapter extends Adapter {
         if (foundOffers) {
           return this.scrapePage(page + 1, flats); // recurse
         } else {
-          console.log(flats);
           return flats;
         }
       });

@@ -88,13 +88,13 @@ describe('preparePageUrl', () => {
   it('should place the page at the right position', () => {
     let baseUrl = 'http://www.cuffaro-immobilien.de/immobilien/page/INSERTPAGE/?post_type=immomakler';
     
-    new Adapter('cuffaro', baseUrl).preparePageUrl(15).should.equal('http://www.cuffaro-immobilien.de/immobilien/page/15/?post_type=immomakler');
+    new Adapter('cuffaro', baseUrl).preparePageUrl(15, baseUrl).should.equal('http://www.cuffaro-immobilien.de/immobilien/page/15/?post_type=immomakler');
   });
       
   it('should place the page at the end', () => {
     let baseUrl = 'http://www.cuffaro-immobilien.de/immobilien/page/?p=INSERTPAGE';
     
-    new Adapter('cuffaro', baseUrl).preparePageUrl(0).should.equal('http://www.cuffaro-immobilien.de/immobilien/page/?p=0');
+    new Adapter('cuffaro', baseUrl).preparePageUrl(0, baseUrl).should.equal('http://www.cuffaro-immobilien.de/immobilien/page/?p=0');
   });
   
 });

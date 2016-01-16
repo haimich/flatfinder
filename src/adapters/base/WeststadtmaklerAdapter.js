@@ -56,7 +56,6 @@ class WeststadtmaklerAdapter extends Adapter {
           }
         });
         
-        console.log(flats, this.companyId);
         return flats;
       });
   }
