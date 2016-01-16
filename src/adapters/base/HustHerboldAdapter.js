@@ -59,7 +59,6 @@ class HustherboldAdapter extends Adapter {
         if (offerCount === this.PER_PAGE) {
           return this.scrapePage(page + 1, flats); // recurse
         } else {
-          console.log(flats);
           return flats;
         }
       });
