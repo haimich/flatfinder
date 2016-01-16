@@ -45,7 +45,9 @@ function compileOffersTemplate(data) {
     if (flatsHtml !== '') {
       html += `
         <h3>${data.companyNames[flats[0].companyId]}</h3>
-        <ul>${flatsHtml}</ul>
+        <ul>
+          ${flatsHtml}
+        </ul>
       `;
     }
   }
