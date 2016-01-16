@@ -76,11 +76,10 @@ module.exports.scrapeAll = () => {
             };
             let text = templateService.compileTemplate(templateService.TEMPLATE_NAMES.OFFERS, data);
             
-            return text;
-            // mailService.sendMail(
-            //   'Flatfinder found new offers',
-            //   text
-            // );
+            mailService.sendMail(
+              'Flatfinder found new offers',
+              text
+            );
           });
       } else {
         console.log('No new entries');
