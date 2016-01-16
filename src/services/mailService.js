@@ -4,8 +4,8 @@ let nconf = require('../helpers/configuration').getInstance();
 let nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport();
 
-const MICHIPIT = 'michipit@gmail.com';
-const CRISTI = 'im.cristina.lica@gmail.com';
+const MICHIPIT = 'michi-mueller@web.de';
+const CRISTI = 'mail@cristinalica.de';
 
 const TO = getReceivers();
 const FROM = MICHIPIT;
