@@ -12,7 +12,7 @@ class Adapter {
     this.baseUrl = baseUrl;
     this.searchString = searchString;
     
-    this.titleBlacklist = [ 'verkauft', 'keine Angebote' ];
+    this.titleBlacklist = [ 'verkauft', 'keine Angebote', 'Marktwertgutachten' ];
     
     this.typeBlacklist = [ 'Praxisetage', 'Büro', 'Laden', 'Läden',
                            'Werkstatt', 'Lager', 'Verkaufsfläche',
