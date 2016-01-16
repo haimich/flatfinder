@@ -7,12 +7,13 @@ let companyService = require('./companyService');
 let templateService = require('./templateService');
 
 let adapters = [
-  require('../adapters/aniseustachi'),
+  // require('../adapters/aniseustachi'),
   // require('../adapters/avallone'),
   // require('../adapters/artekt'),
   // require('../adapters/baar'),
   // require('../adapters/besserwohnen'),
   // require('../adapters/blumenwinkel'),
+  require('../adapters/can'),
   // require('../adapters/cuffaro'),
   // require('../adapters/engelvoelkers'),
   // require('../adapters/ewg'),
@@ -25,7 +26,7 @@ let adapters = [
   // require('../adapters/helblerichter'),
   // require('../adapters/immoka'),
   // require('../adapters/immotrend'),
-  require('../adapters/immowenk'),
+  // require('../adapters/immowenk'),
   // require('../adapters/kassel'),
   // require('../adapters/km'),
   // require('../adapters/laub'),
