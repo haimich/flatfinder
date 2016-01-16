@@ -1,6 +1,6 @@
 'use strict';
 
-let dbHelper = require('../helpers/db');
+let dbHelper = require('../providers/db');
 
 module.exports.getCompanies = () => {
   return dbHelper.getInstance()

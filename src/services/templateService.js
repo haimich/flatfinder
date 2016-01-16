@@ -27,6 +27,7 @@ function compileOffersTemplate(data) {
     <head><meta charset=utf-8><title>Flatfinder</title></head>
     <body>
       <h2>Flatfinder 5000</h2>
+      <img src="https://raw.githubusercontent.com/haimich/flatfinder/master/logo.png">
   `;
   
   for (let flats of data.flatResponses) {

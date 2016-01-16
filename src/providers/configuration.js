@@ -18,7 +18,12 @@ module.exports.getInstance = () => {
     
     nconf.defaults({
       'port': 3030,
-      'NODE_ENV': 'development'
+      'NODE_ENV': 'development',
+      'mailgun_url': '',
+      'mailgun_user': 'api',
+      'mailgun_key': '',
+      'mailgun_to_dev': '',
+      'mailgun_to_prod': ''
     });
     
     instance = nconf;

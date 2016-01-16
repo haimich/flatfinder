@@ -4,7 +4,7 @@ let express = require('express');
 let app = express();
 
 let service = require('./services/scrapeService');
-let nconf = require('./helpers/configuration').getInstance();
+let nconf = require('./providers/configuration').getInstance();
 
 app.set('port', nconf.get('port'));
 
