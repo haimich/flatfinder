@@ -8,6 +8,7 @@ function sendMail(subject, text) {
     console.log(subject, text);
     return;
   }
+  
   return request({
     method: 'POST',
     uri: nconf.get('mailgun_url'),
