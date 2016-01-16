@@ -28,7 +28,7 @@ let adapters = [
   // require('../adapters/immowenk'),
   // require('../adapters/kassel'),
   // require('../adapters/km'),
-  require('../adapters/laub'),
+  // require('../adapters/laub'),
   // require('../adapters/leitgieb'),
   // require('../adapters/neubaukompass'),
   // require('../adapters/seegerrusswurm'),
@@ -40,7 +40,7 @@ let adapters = [
   // require('../adapters/throm'),
   // require('../adapters/volkswohnung'),
   // require('../adapters/weisenburger'),
-  // require('../adapters/weststadtmakler'),
+  require('../adapters/weststadtmakler'),
   // require('../adapters/wipfler'),
 ];
 
