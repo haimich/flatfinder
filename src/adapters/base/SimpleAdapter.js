@@ -31,7 +31,7 @@ class SimpleAdapter extends Adapter {
     return request({
       uri: this.baseUrl + this.urlSuffix,
       encoding: this.encoding,
-      followRedirect: false,
+      followRedirect: true,
       headers: {
         'User-Agent': UA.FIREFOX
       }
