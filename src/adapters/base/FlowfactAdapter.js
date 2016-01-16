@@ -14,7 +14,7 @@ class FlowfactAdapter extends Adapter {
     this.startPage = 1;
     this.urlSuffix = '';
     this.getUrlFromElement = null;
-    this.useAbsoluteUrls = false;
+    this.useAbsoluteUrls = true;
     this.encoding = 'utf8';
   }
   
