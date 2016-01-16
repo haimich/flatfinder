@@ -21,7 +21,11 @@ class Adapter {
   }
    
   preparePageUrl(page) {
-    return this.baseUrl.replace('INSERTPAGE', page)
+    let url = this.baseUrl;
+    if (this.urlSuffix !== '') {
+      url += this.urlSuffix;
+    }
+    return url.replace('INSERTPAGE', page)
   }
   
   extractUrlFromElement($, el, getUrlFromElement) {

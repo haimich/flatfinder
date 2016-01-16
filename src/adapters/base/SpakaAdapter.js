@@ -14,7 +14,7 @@ class SpakaAdapter extends Adapter {
     this.urlSuffix = '';
     this.getUrlFromElement = ($el) => {
       return $el.parent().find('.imgContainer a').attr('href');
-    }
+    };
     this.useAbsoluteUrls = true;
     this.encoding = 'utf8';
     
@@ -23,9 +23,11 @@ class SpakaAdapter extends Adapter {
   }
   
   scrape() {
+    const STARTPAGE = 0;
+    
     console.log('Scraping', this.companyId);
     let flats = [];
-    return this.scrapePage(0, flats);
+    return this.scrapePage(STARTPAGE, flats);
   }
   
   scrapePage(page, flats) {

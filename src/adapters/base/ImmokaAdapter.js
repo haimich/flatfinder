@@ -2,30 +2,21 @@
 
 let request = require('request-promise');
 let cheerio = require('cheerio');
+let urlModule = require('url');
 let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
 let UA = require('../../models/UserAgent');
 
-class PagedAdapter extends Adapter {
+class ImmokaAdapter extends Adapter {
   
-  /**
-   * @param object options (optional):
-   *        @param string  startPage:         the page to start scraping
-   *        @param string  urlSuffix:         pass optional suffix to add to baseUrl
-   *        @param string  getUrlFromElement: a function that extracts the url from a cheerio object
-   *        @param boolean useAbsoluteUrls:   whether the pages uses absolute urls for their flat links 
-   *        @param string  encoding:          the character encoding used on the site
-   */
   constructor(companyId, baseUrl, searchString, options) {
-    super(companyId, baseUrl, searchString);
+    super(companyId, baseUrl, '#content a.listtitle');
     
-    let opts = options || {};
-    
-    this.startPage = opts.startPage;
-    this.urlSuffix = opts.urlSuffix || '';
-    this.getUrlFromElement = opts.getUrlFromElement || null;
-    this.useAbsoluteUrls = opts.useAbsoluteUrls || false;
-    this.encoding = opts.encoding || 'utf8';
+    this.startPage = 1;
+    this.urlSuffix = '/immoka/ctrl/11/11/?11_pmt=3&11_arf=-1.0&11_art=-1.0&11_mtb=1&11_mtr=-1&11_mth=-1&11_mtl=-1&11_prf=-1.0&11_prt=-1.0&11_arf=-1.0&11_art=-1.0&11_frs=-1&11_blt=-1timeLimitedLiving11_tll=0&11_zl=&11_idp=-1&11_idcs=-1&11_idc=-1&11_navp=INSERTPAGE';
+    this.getUrlFromElement = null;
+    this.useAbsoluteUrls = false;
+    this.encoding = 'utf8';
   }
   
   scrape() {
@@ -58,17 +49,29 @@ class PagedAdapter extends Adapter {
           let flatUrl = this.extractUrlFromElement($, el, this.getUrlFromElement);
           let url = this.extractUrl(flatUrl, this.baseUrl, this.urlSuffix, this.useAbsoluteUrls);
           
-          let flat = new Flat(this.companyId, title, url);
+          let flat = new Flat(this.companyId, title, this.cleanupUrl(url));
           flats.push(flat);
         });
         
         if (foundOffers) {
           return this.scrapePage(page + 1, flats); // recurse
         } else {
+          console.log(flats);
           return flats;
         }
       });
   }
+  
+  /**
+   * Remove jsessionid from url so on the next run we can identify
+   * this url as already visited.
+   */
+  cleanupUrl(url) {
+    let urlObj = urlModule.parse(url);
+    let pos = urlObj.pathname.indexOf(';jsessionid');
+    urlObj.pathname = urlObj.pathname.slice(0, pos);
+    return urlModule.format(urlObj);
+  }
 }
 
-module.exports = PagedAdapter;
+module.exports = ImmokaAdapter;

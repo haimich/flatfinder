@@ -11,6 +11,7 @@ class FlowfactAdapter extends Adapter {
   constructor(companyId, baseUrl) {
     super(companyId, baseUrl, 'div h3 a');
     
+    this.startPage = 1;
     this.urlSuffix = '';
     this.getUrlFromElement = null;
     this.useAbsoluteUrls = false;
@@ -18,11 +19,9 @@ class FlowfactAdapter extends Adapter {
   }
   
   scrape() {
-    const STARTPAGE = 1;
-    
     console.log('Scraping', this.companyId);
     let flats = [];
-    return this.scrapePage(STARTPAGE, flats); 
+    return this.scrapePage(this.startPage, flats); 
   }
   
   scrapePage(page, flats) {
