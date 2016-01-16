@@ -39,7 +39,7 @@ function compileOffersTemplate(data) {
         continue;
       }
       
-      flatsHtml += `<li><a href="${flat.url}">${flat.title}</a></li>`;
+      flatsHtml += `<li><a href="${flat.url}">${flat.title}</a></li>\n`;
     }
     
     if (flatsHtml !== '') {
