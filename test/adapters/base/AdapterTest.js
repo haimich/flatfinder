@@ -4,24 +4,33 @@ let should = require('chai').should();
 let Adapter = require('../../../src/adapters/base/Adapter')
 
 describe('isBlacklisted', () => {
+  let adapter;
+  
+  beforeEach(() => {
+    adapter = new Adapter();      
+  });
+  
   describe('when matching', () => {
     
     it('should return false', () => {
       let blacklist = ['sold'];
+      adapter.blacklist = blacklist;
       
-      new Adapter().isBlacklisted(blacklist, 'bla foo sold bla').should.be.true;
+      adapter.isBlacklisted('bla foo sold bla').should.be.true;
     });
     
     it('should return false with multiple items', () => {
       let blacklist = ['sold', 'priceless'];
+      adapter.blacklist = blacklist;
       
-      new Adapter().isBlacklisted(blacklist, 'bla foo sol priceless bla').should.be.true;
+      adapter.isBlacklisted('bla foo sol priceless bla').should.be.true;
     });
     
     it('should ignore case', () => {
       let blacklist = ['soLD', 'PRICEless'];
+      adapter.blacklist = blacklist;
       
-      new Adapter().isBlacklisted(blacklist, 'bla foo sold priceless bla').should.be.true;
+      adapter.isBlacklisted('bla foo sold priceless bla').should.be.true;
     });
     
   });
@@ -30,14 +39,16 @@ describe('isBlacklisted', () => {
     
     it('should return false', () => {
       let blacklist = ['sold'];
+      adapter.blacklist = blacklist;
       
-      new Adapter().isBlacklisted(blacklist, 'bla foo').should.be.false;
+      adapter.isBlacklisted('bla foo').should.be.false;
     });
     
     it('should return false for an empty array', () => {
       let blacklist = [];
+      adapter.blacklist = blacklist;
       
-      new Adapter().isBlacklisted(blacklist, 'bla sold foo').should.be.false;
+      adapter.isBlacklisted('bla sold foo').should.be.false;
     });
     
   });

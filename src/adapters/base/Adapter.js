@@ -12,7 +12,7 @@ class Adapter {
     this.baseUrl = baseUrl;
     this.searchString = searchString;
     
-    this.blacklist = [ 'verkauft', 'keine Angebote', 'Marktwertgutachten',
+    this._blacklist = [ 'verkauft', 'keine Angebote', 'Marktwertgutachten',
                        'vermietet', 'kapitalanleger', 'kapitalanlage', 'rendite',
                        'Büro', 'lager', 'Praxisetage', 'Büro', 'Laden',
                        'Läden', 'Werkstatt', 'Lager', 'Verkaufsfläche',
@@ -60,12 +60,16 @@ class Adapter {
   }
   
   isBlacklisted(text) {
-    for (let entry of this.blacklist) {
+    for (let entry of this._blacklist) {
       if (text.toLowerCase().indexOf(entry.toLowerCase()) >= 0) {
         return true;
       }
     }
     return false;
+  }
+  
+  set blacklist(list) {
+    this._blacklist = list;
   }
 }
 
