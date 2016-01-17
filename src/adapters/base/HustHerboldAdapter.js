@@ -6,7 +6,7 @@ let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
 let UA = require('../../models/UserAgent');
 
-class HustherboldAdapter extends Adapter {
+class HustHerboldAdapter extends Adapter {
   
   constructor(companyId, baseUrl) {
     super(companyId, baseUrl, 'h2.nb-maklerTool-objectList-item-headline');
@@ -65,4 +65,4 @@ class HustherboldAdapter extends Adapter {
   }
 }
 
-module.exports = HustherboldAdapter;
+module.exports = HustHerboldAdapter;

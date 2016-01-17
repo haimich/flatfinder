@@ -1,9 +1,9 @@
 'use strict';
 
-let HustherboldAdapter = require('./base/HustherboldAdapter');
+let HustHerboldAdapter = require('./base/HustHerboldAdapter');
 
 module.exports.scrape = () => {
-  let adapter = new HustherboldAdapter(
+  let adapter = new HustHerboldAdapter(
     'hustherbold',
     'http://www.hust-herbold.de/'
   );
