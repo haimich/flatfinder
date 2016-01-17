@@ -36,7 +36,7 @@ class WeststadtmaklerAdapter extends Adapter {
           if (next.find('a').length === 1) {
             let title = next.find('a').text().trim();
             
-            if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
+            if (title === '' || this.isBlacklisted(title)) {
               return;
             }
             

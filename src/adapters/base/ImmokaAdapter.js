@@ -42,7 +42,7 @@ class ImmokaAdapter extends Adapter {
           foundOffers = true;
           let title = $(el).text().trim();
           
-          if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
+          if (title === '' || this.isBlacklisted(title)) {
             return;
           }
           

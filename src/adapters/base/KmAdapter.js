@@ -39,7 +39,7 @@ class KmAdapter extends Adapter {
           $(el).parent().parent().find('.cc-m-form-checkable-vertical label').each((i, el) => {
             let title = $(el).text().trim();
           
-            if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
+            if (title === '' || this.isBlacklisted(title)) {
               return;
             }
             

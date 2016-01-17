@@ -41,7 +41,7 @@ class FlowfactAdapter extends Adapter {
           foundOffers = true;
           let title = $(el).text().trim();
           
-          if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
+          if (title === '' || this.isBlacklisted(title)) {
             return;
           }
           
@@ -51,9 +51,9 @@ class FlowfactAdapter extends Adapter {
           let type = $(el).closest('div').find('ul li').first().text().trim();
           let price = $(el).closest('div').find('ul li').last().text().trim();
           
-          if (this.isBlacklisted(this.typeBlacklist, type) || 
-              this.isRentAppartment(price) ||
-              this.isBlacklisted(this.titleBlacklist, title)) {
+          if (this.isBlacklisted(type) || 
+              this.isBlacklisted(price) ||
+              this.isBlacklisted(title)) {
             return;
           }
           
@@ -68,10 +68,6 @@ class FlowfactAdapter extends Adapter {
           return flats;
         }
       });
-  }
-  
-  isRentAppartment(text) {
-    return text.indexOf('Miete') >= 0;
   }
 }
 

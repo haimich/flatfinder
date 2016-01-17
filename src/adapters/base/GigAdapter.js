@@ -56,7 +56,7 @@ class GigAdapter extends Adapter {
         if (wohnenMenuActive) {
           let title = curText;
           
-          if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
+          if (title === '' || this.isBlacklisted(title)) {
             return;
           }
           

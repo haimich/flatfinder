@@ -29,7 +29,7 @@ class PostbankAdapter extends Adapter {
         $(this.searchString).each((i, el) => {
           let title = $(el).find('span').first().text().trim();
           
-          if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
+          if (title === '' || this.isBlacklisted(title)) {
             return;
           }
           

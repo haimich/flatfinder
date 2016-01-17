@@ -12,14 +12,13 @@ class Adapter {
     this.baseUrl = baseUrl;
     this.searchString = searchString;
     
-    this.titleBlacklist = [ 'verkauft', 'keine Angebote', 'Marktwertgutachten',
-                            'vermietet', 'kapitalanleger', 'kapitalanlage', 'rendite',
-                            'Büro' ];
-    
-    this.typeBlacklist = [ 'Praxisetage', 'Büro', 'Laden', 'Läden',
-                           'Werkstatt', 'Lager', 'Verkaufsfläche',
-                           'Industriehalle', 'Anwesen', 'Gaststätte', 
-                           'Restaurant', 'Halle' ];
+    this.blacklist = [ 'verkauft', 'keine Angebote', 'Marktwertgutachten',
+                       'vermietet', 'kapitalanleger', 'kapitalanlage', 'rendite',
+                       'Büro', 'lager', 'Praxisetage', 'Büro', 'Laden',
+                       'Läden', 'Werkstatt', 'Lager', 'Verkaufsfläche',
+                       'Industriehalle', 'Anwesen', 'Gaststätte', 'Restaurant',
+                       'Halle', 'miete'
+    ];
   }
    
   preparePageUrl(page, baseUrl, urlSuffix) {
@@ -60,8 +59,8 @@ class Adapter {
     return url;
   }
   
-  isBlacklisted(blacklist, text) {
-    for (let entry of blacklist) {
+  isBlacklisted(text) {
+    for (let entry of this.blacklist) {
       if (text.toLowerCase().indexOf(entry.toLowerCase()) >= 0) {
         return true;
       }

@@ -35,7 +35,9 @@ class SpeckAdapter extends Adapter {
         $(this.searchString).each((i, el) => {
           let title = $(el).find('h2').text().trim();
           
-          if (title === '' || this.isBlacklisted(this.titleBlacklist, title) || this.isSold($, el)) {
+          if (title === '' ||
+              this.isBlacklisted(title) ||
+              this.isSold($, el)) {
             return;
           }
           

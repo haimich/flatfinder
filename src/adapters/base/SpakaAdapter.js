@@ -47,7 +47,7 @@ class SpakaAdapter extends Adapter {
           numberOfOffers += 1;
           let title = $(el).text().trim();
           
-          if (title === '' || this.isBlacklisted(this.titleBlacklist, title)) {
+          if (title === '' || this.isBlacklisted(title)) {
             return;
           }
           
