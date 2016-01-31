@@ -7,7 +7,7 @@ let companyService = require('./companyService');
 let templateService = require('./templateService');
 
 let adapters = [
-  require('../adapters/aniseustachi'),
+  // require('../adapters/aniseustachi'), => site is down atm
   require('../adapters/avallone'),
   require('../adapters/artekt'),
   require('../adapters/baar'),
