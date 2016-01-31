@@ -17,8 +17,9 @@ function compileTemplate(templateName, data) {
 /**
  * Offers Template
  * @param data.flatResponses: array of flat arrays
- * @param data.companyNames: string array of company names
- * @param data.emptyEntries: number of companies that did not return any offers
+ * @param data.companyNames:  string array of company names
+ * @param data.emptyEntries:  number of companies that did not return any offers
+ * @param data.errorList:     errors that occured during scraping
  */
 function compileOffersTemplate(data) {
   let html = `
@@ -52,8 +53,24 @@ function compileOffersTemplate(data) {
     }
   }
   
+  html += `<h4>Services without offers: ${data.emptyEntries}</h4>`;
+  
+  if (data.errorList.length >= 1) {
+    let errorsHtml = '';
+    
+    for (let error of data.errorList) {
+      errorsHtml += `<li>${error}</li>\n`;
+    }
+    
+    html += `
+      <h4>Errors during scraping:</h4>
+      <ul>
+        ${errorsHtml}
+      </ul>
+    `;
+  }
+  
   html += `
-      <h4>Services without offers: ${data.emptyEntries}</h4>
     </body>
   </html>
   `;

@@ -7,7 +7,7 @@ let companyService = require('./companyService');
 let templateService = require('./templateService');
 
 let adapters = [
-  // require('../adapters/aniseustachi'), => site is down atm
+  require('../adapters/aniseustachi'),
   require('../adapters/avallone'),
   require('../adapters/artekt'),
   require('../adapters/baar'),
@@ -50,8 +50,15 @@ let adapters = [
 ];
 
 module.exports.scrapeAll = () => {
-  return Promise.map(adapters, adapter => adapter.scrape())
-    .then(flatResponses => {
+  let errorList = [];
+  
+  return Promise.map(adapters, adapter => {
+    return adapter.scrape()
+      .catch(error => {
+        errorList.push(`${error.message} (${error.options.uri})`);
+        return [];
+      });
+  }).then(flatResponses => {
       return Promise.map(flatResponses, flats => {
         return Promise.map(flats, checkOfferExists);
       });
@@ -72,7 +79,8 @@ module.exports.scrapeAll = () => {
             let data = {
               flatResponses,
               companyNames,
-              emptyEntries
+              emptyEntries,
+              errorList: errorList
             };
             let text = templateService.compileTemplate(templateService.TEMPLATE_NAMES.OFFERS, data);
             
@@ -82,7 +90,7 @@ module.exports.scrapeAll = () => {
             );
           });
       } else {
-        console.log('No new entries');
+        console.log('No new entries. Errors: ' + errorList);
       }
     })
     .catch(error => {
