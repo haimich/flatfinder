@@ -6,7 +6,7 @@ let Adapter = require('./Adapter');
 let Flat = require('../../models/Flat');
 let UA = require('../../models/UserAgent');
 
-class PagedAdapter extends Adapter {
+class CuffaroAdapter extends Adapter {
 
   constructor(companyId, baseUrl, searchString, options) {
     super(companyId, baseUrl, '.property-details .property-title a');
@@ -28,7 +28,7 @@ class PagedAdapter extends Adapter {
     console.log('Scraping', this.companyId, page);
     
     return request({
-      uri: this.preparePageUrl(page, this.baseUrl),
+      uri: this.preparePageUrl(page, this.baseUrl, this.urlSuffix),
       encoding: this.encoding,
       headers: {
         'User-Agent': UA.FIREFOX
@@ -62,4 +62,4 @@ class PagedAdapter extends Adapter {
   }
 }
 
-module.exports = PagedAdapter;
+module.exports = CuffaroAdapter;

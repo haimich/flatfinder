@@ -28,7 +28,7 @@ class FlowfactAdapter extends Adapter {
     console.log('Scraping', this.companyId, page);
     
     return request({
-      uri: this.preparePageUrl(page, this.baseUrl),
+      uri: this.preparePageUrl(page, this.baseUrl, this.urlSuffix),
       encoding: this.encoding,
       headers: {
         'User-Agent': UA.FIREFOX
