@@ -65,7 +65,6 @@ class PagedAdapter extends Adapter {
         if (foundOffers) {
           return this.scrapePage(page + 1, flats); // recurse
         } else {
-          console.log(flats);
           return flats;
         }
       });
