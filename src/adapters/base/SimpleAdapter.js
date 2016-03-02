@@ -53,6 +53,9 @@ class SimpleAdapter extends Adapter {
           flats.push(flat);
         });
         
+        if (flats.length === 0) {
+          console.log('ARGS, no flats from ' + this.companyId);
+        }
         return flats;
       });
   }
