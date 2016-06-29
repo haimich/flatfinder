@@ -3,8 +3,8 @@ exports.up = (knex, Promise) => {
   return Promise.all([
     knex.schema.createTable('offers', (table) => {
       table.bigIncrements('id').primary().unsigned();
-      table.string('company_id');
-      table.string('title');
+      table.text('company_id');
+      table.text('title');
       table.text('url', 'mediumtext');
       
       table.timestamp('created_at').defaultTo(knex.fn.now());
