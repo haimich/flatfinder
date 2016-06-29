@@ -5,9 +5,12 @@ let SimpleAdapter = require('./base/SimpleAdapter');
 module.exports.scrape = () => {
   let adapter = new SimpleAdapter(
     'pellrich',
-    'http://www.pell-rich.de/category/wohnen/wohnung/',
-    '#main_content .articles h2 a', {
-      useAbsoluteUrls: true
+    'http://pell-rich.de/wohnen/?type=wohnen',
+    '.property-title h3', {
+      useAbsoluteUrls: true,
+      getUrlFromElement: ($el) => {
+        return $el.parent().parent().attr('href');
+      }
     }
   );
   
