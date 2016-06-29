@@ -1,14 +1,18 @@
 'use strict';
 
-let SimpleAdapter = require('./base/SimpleAdapter');
+let PagedAdapter = require('./base/PagedAdapter');
 
 module.exports.scrape = () => {
-  let adapter = new SimpleAdapter(
+  let adapter = new PagedAdapter(
     'helblerichter',
-    'http://www.helble-richter.de',
-    '.suchergebnis.immobilien > li a', {
-      urlSuffix: '/immobilien/wohnen/ergebnis?objektart=3&miete_kauf=8&preis_von=200000&preis_bis=450000&zimmer_von=3&zimmer_bis=6&Suchen=Suchen',
-      encoding: 'binary'
+    'http://www.helble-richter.de/immobilien/',
+    '.property .hidden-sm a h3', {
+      startPage: 1,
+      useAbsoluteUrls: true,
+      urlSuffix: 'wohnen?vermarktung=&objektart=&ort=&_layout=list&page=INSERTPAGE',
+      getUrlFromElement: ($el) => {
+        return $el.parent().attr('href');
+      }
     }
   );
   
