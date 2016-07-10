@@ -27,7 +27,7 @@ let adapters = [
   require('../adapters/hustherbold'),
   require('../adapters/immoka'),
   require('../adapters/immotrend'),
-  require('../adapters/immowenk'),
+  // require('../adapters/immowenk'),
   require('../adapters/kassel'),
   require('../adapters/km'),
   require('../adapters/koch-rheinstetten'),
