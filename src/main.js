@@ -9,13 +9,14 @@ let nconf = require('./providers/configuration').getInstance();
 app.set('port', nconf.get('port'));
 
 app.get('/scrape', (request, response) => {
+  response.status(202).send('All rity');
+
   service.scrapeAll()
     .then((flats) => {
-      response.send(flats);
+      console.log(flats);
     })
     .catch((err) => {
       console.error(err, err.stack);
-      response.send('Error ' + err);
     });
 });
 
@@ -23,5 +24,5 @@ let server = app.listen(app.get('port'), () => {
   let host = server.address().address;
   let port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+  console.log('App listening at http://%s:%s', host, port);
 });

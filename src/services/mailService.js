@@ -23,7 +23,7 @@ function sendMail(subject, text) {
       html: text
     }
   }).then(response => {
-    console.log(response);
+    console.log('Response from Mailgun', response);
   }).catch(error => {
     console.log(error, error.stack);
   });
