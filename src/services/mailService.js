@@ -17,7 +17,7 @@ function sendMail(subject, text) {
       'pass': nconf.get('mailgun_key')
     },
     form: {
-      from: `Flat Finder <mail@flatfinder.de>`,
+      from: 'Flat Finder <mail@flatfinder.de>',
       to: nconf.get('mailgun_to'),
       subject: subject,
       html: text
