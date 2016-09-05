@@ -2,8 +2,8 @@
 
 let Promise = require('bluebird');
 let mailService = require('./mailService');
-let offersService = require('./offersService');
-let companyService = require('./companyService');
+let offersRepo = require('../repos/offersRepo');
+let companyRepo = require('../repos/companyRepo');
 let templateService = require('./templateService');
 
 let adapters = [
@@ -27,7 +27,7 @@ let adapters = [
   require('../adapters/hustherbold'),
   require('../adapters/immoka'),
   require('../adapters/immotrend'),
-  // require('../adapters/immowenk'),
+  require('../adapters/immowenk'),
   require('../adapters/kassel'),
   require('../adapters/km'),
   require('../adapters/koch-rheinstetten'),
@@ -37,10 +37,10 @@ let adapters = [
   require('../adapters/neubaukompass'),
   require('../adapters/pellrich'),
   require('../adapters/pferrer'),
-  require('../adapters/postbank'),
+  // require('../adapters/postbank'), broken
   require('../adapters/seegerrusswurm'),
   require('../adapters/sekundus'),
-  require('../adapters/spaka'),
+  require('../adapters/spaka'), 
   require('../adapters/spaka_haeuser'),
   require('../adapters/speck'),
   require('../adapters/suw'),
@@ -74,7 +74,7 @@ module.exports.scrapeAll = () => {
       console.log('Scraping done', flatResponses);
       
       if (hasNewEntries(flatResponses)) {
-        companyService.getCompanies()
+        companyRepo.getCompanies()
           .then(companies => {
             let emptyEntries = getEmptyEntries(flatResponses);
             let companyNames = getCompanyNames(companies);
@@ -82,7 +82,7 @@ module.exports.scrapeAll = () => {
               flatResponses,
               companyNames,
               emptyEntries,
-              errorList: errorList
+              errorList
             };
             let text = templateService.compileTemplate(templateService.TEMPLATE_NAMES.OFFERS, data);
             
@@ -92,7 +92,8 @@ module.exports.scrapeAll = () => {
             );
           });
       } else {
-        console.log('No new entries. Errors: ' + errorList);
+        console.log('No new entries.');
+        console.error('Errors:', errorList)
       }
     })
     .catch(error => {
@@ -106,7 +107,7 @@ module.exports.scrapeAll = () => {
 }
 
 function checkOfferExists(flat) {
-  return offersService.offerExists(flat.companyId, flat.title, flat.url)
+  return offersRepo.offerExists(flat.companyId, flat.title, flat.url)
     .then(offerExists => {
       flat.exists = offerExists;
       return flat;
@@ -117,7 +118,7 @@ function insertIfNew(flat) {
   if (flat.exists) {
     return flat;
   }
-  return offersService.insertOffer(flat.companyId, flat.title, flat.url)
+  return offersRepo.insertOffer(flat.companyId, flat.title, flat.url)
     .then(() => flat);
 }
 
