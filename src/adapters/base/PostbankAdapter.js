@@ -11,7 +11,7 @@ let childProcess = require('child_process');
 class PostbankAdapter extends Adapter {
   
   constructor(companyId, baseUrl) {
-    super(companyId, baseUrl, '.fio-object-info h3 a');
+    super(companyId, baseUrl, '.fio-item-description h3');
     
     this.urlSuffix = '';
     this.getUrlFromElement = null;
@@ -25,16 +25,18 @@ class PostbankAdapter extends Adapter {
       .then(response => {
         let flats = [];
         let $ = cheerio.load(response);
-        
+        console.log(response)
+
         $(this.searchString).each((i, el) => {
-          let title = $(el).find('span').first().text().trim();
+          console.log(el)
+          let title = $(el).trim(); //find('span').first().text().
           
           if (title === '' || this.isBlacklisted(title)) {
             return;
           }
           
-          let flatUrl = this.extractUrlFromElement($, el, this.getUrlFromElement);
-          let url = this.extractUrl(flatUrl, this.baseUrl, this.urlSuffix, this.useAbsoluteUrls);
+          // let flatUrl = this.extractUrlFromElement($, el, this.getUrlFromElement);
+          // let url = this.extractUrl(flatUrl, this.baseUrl, this.urlSuffix, this.useAbsoluteUrls);
           
           let flat = new Flat(this.companyId, title, url);
           flats.push(flat);
