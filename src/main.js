@@ -9,7 +9,7 @@ let nconf = require('./providers/configuration').getInstance();
 app.set('port', nconf.get('port'));
 
 app.get('/scrape', (request, response) => {
-  response.status(202).send('All rity');
+  response.status(200).send('All rity');
 
   service.scrapeAll()
     .then((flats) => {
