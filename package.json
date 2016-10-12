@@ -8,6 +8,7 @@
     "npm": ">=3.0.0"
   },
   "scripts": {
+    "install-platform-specific": "npm install sqlite3 --build-from-source",
     "prestart": "knex migrate:latest",
     "start": "node src/main.js",
     "watch": "nodemon src/main.js",
@@ -34,7 +35,7 @@
     "pg": "^4.4.3",
     "phantomjs": "^1.9.19",
     "request-promise": "^1.0.2",
-    "sqlite3": "^3.1.1"
+    "sqlite3": "^3.1.6"
   },
   "devDependencies": {
     "chai": "^3.4.1",

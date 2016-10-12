@@ -40,7 +40,7 @@ let adapters = [
   // require('../adapters/postbank'), broken
   require('../adapters/seegerrusswurm'),
   require('../adapters/sekundus'),
-  require('../adapters/spaka'), 
+  require('../adapters/spaka'),
   require('../adapters/spaka_haeuser'),
   require('../adapters/speck'),
   require('../adapters/suw'),
@@ -53,7 +53,7 @@ let adapters = [
 
 module.exports.scrapeAll = () => {
   let errorList = [];
-  
+
   return Promise.map(adapters, adapter => {
     return adapter.scrape()
       .catch(error => {
@@ -72,7 +72,7 @@ module.exports.scrapeAll = () => {
     })
     .then(flatResponses => {
       console.log('Scraping done', flatResponses);
-      
+
       if (hasNewEntries(flatResponses)) {
         companyRepo.getCompanies()
           .then(companies => {
@@ -85,7 +85,7 @@ module.exports.scrapeAll = () => {
               errorList
             };
             let text = templateService.compileTemplate(templateService.TEMPLATE_NAMES.OFFERS, data);
-            
+
             mailService.sendMail(
               'Flatfinder found new offers',
               text
@@ -101,7 +101,7 @@ module.exports.scrapeAll = () => {
         'Flatfinder had a hickup',
         JSON.stringify(error.stack)
       );
-      
+
       throw error;
     });
 }
