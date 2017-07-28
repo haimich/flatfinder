@@ -3,10 +3,6 @@
   "version": "0.0.1",
   "description": "A webscraping attempt.",
   "main": "src/main.js",
-  "engines": {
-    "node": ">=4.0.0",
-    "npm": ">=3.0.0"
-  },
   "scripts": {
     "install-platform-specific": "npm install sqlite3 --build-from-source",
     "prestart": "knex migrate:latest",
