@@ -30,8 +30,7 @@
     "nconf": "^0.8.2",
     "pg": "^4.4.3",
     "phantomjs": "^1.9.19",
-    "request-promise": "^1.0.2",
-    "sqlite3": "^3.1.6"
+    "request-promise": "^1.0.2"
   },
   "devDependencies": {
     "chai": "^3.4.1",
