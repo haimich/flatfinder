@@ -5,8 +5,8 @@ let SimpleAdapter = require('./base/SimpleAdapter');
 module.exports.scrape = () => {
   let adapter = new SimpleAdapter(
     'ewg',
-    'http://www.ewg-ka.de',
-    '.project_inner a'
+    'https://www.ewg-ka.de/projekte/#wohnen',
+    '.middle_inner h4'
   );
   
   return adapter.scrape();

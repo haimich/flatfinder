@@ -9,7 +9,7 @@ let UA = require('../../models/UserAgent');
 class GebakaAdapter extends Adapter {
   
   constructor(companyId, baseUrl) {
-    super(companyId, baseUrl, '#index2content > div');
+    super(companyId, baseUrl, '.project h3');
     
     this.urlSuffix = '';
     this.getUrlFromElement = null;

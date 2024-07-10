@@ -5,8 +5,8 @@ let SimpleAdapter = require('./base/SimpleAdapter');
 module.exports.scrape = () => {
   let adapter = new SimpleAdapter(
     'can',
-    'http://www.can-immobilien-ka.de/de/0__2_0_0__dadw/immobilien-wohnungen-kauf.html',
-    '#listenansicht h1'
+    'https://www.can-immobilien-ka.de/de/0__69_1_0__/immobilien-haeuser.html',
+    '.wrapper_liste h2'
   );
   
   return adapter.scrape();

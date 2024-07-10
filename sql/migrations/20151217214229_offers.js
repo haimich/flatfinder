@@ -1,5 +1,5 @@
 
-exports.up = (knex, Promise) => {
+exports.up = (knex) => {
   return Promise.all([
     knex.schema.createTable('offers', (table) => {
       table.bigIncrements('id').primary().unsigned();
@@ -14,7 +14,7 @@ exports.up = (knex, Promise) => {
   ]);
 };
 
-exports.down = (knex, Promise) => {
+exports.down = (knex) => {
   return Promise.all([
     knex.schema.dropTable('offers')
   ]);

@@ -1,11 +1,14 @@
 'use strict';
 
-let GebakaAdapter = require('./base/GebakaAdapter');
+let SimpleAdapter = require('./base/SimpleAdapter');
 
 module.exports.scrape = () => {
-  let adapter = new GebakaAdapter(
+  let adapter = new SimpleAdapter(
     'gebaka',
-    'http://www.gebaka.de/index2.php?site=objekteaktuell&umenue=1&kategorie=Kaufobjekte'
+    'https://www.gebaka.de/objekte/#projekte',
+    '.project h3', {
+      useAbsoluteUrls: true
+    }
   );
   
   return adapter.scrape();

@@ -7,49 +7,53 @@ let companyRepo = require('../repos/companyRepo');
 let templateService = require('./templateService');
 
 let adapters = [
-  require('../adapters/aniseustachi'),
-  require('../adapters/avallone'),
-  require('../adapters/artekt'),
-  require('../adapters/baar'),
-  require('../adapters/besserwohnen'),
-  require('../adapters/blumenwinkel'),
-  require('../adapters/can'),
-  require('../adapters/cuffaro'),
-  require('../adapters/engelvoelkers'),
-  require('../adapters/ewg'),
-  require('../adapters/forum'),
+  // OK: 
+  // require('../adapters/avallone'),
+  // require('../adapters/can'),
+  // require('../adapters/cuffaro'),
+  // require('../adapters/ewg'),
+  // require('../adapters/forum'),
+
+  // Check: 
   require('../adapters/gebaka'),
-  require('../adapters/gig'),
-  require('../adapters/goebelbecker'),
-  require('../adapters/haitz'),
-  require('../adapters/heck'),
-  require('../adapters/helblerichter'),
-  require('../adapters/hustherbold'),
-  require('../adapters/immoka'),
-  require('../adapters/immotrend'),
-  require('../adapters/immowenk'),
-  require('../adapters/kassel'),
-  require('../adapters/km'),
-  require('../adapters/koch-rheinstetten'),
-  require('../adapters/kuehn'),
-  require('../adapters/laub'),
-  require('../adapters/leitgieb'),
-  require('../adapters/neubaukompass'),
-  require('../adapters/pellrich'),
-  require('../adapters/pferrer'),
-  // require('../adapters/postbank'), broken
-  require('../adapters/seegerrusswurm'),
-  require('../adapters/sekundus'),
-  require('../adapters/spaka'),
-  require('../adapters/spaka_haeuser'),
-  require('../adapters/speck'),
-  require('../adapters/suw'),
-  require('../adapters/throm'),
-  require('../adapters/volkswohnung'),
-  require('../adapters/weisenburger'),
-  require('../adapters/weststadtmakler'),
-  require('../adapters/wipfler'),
+  // require('../adapters/gig'),
+  // require('../adapters/goebelbecker'),
+  // require('../adapters/haitz'),
+  // require('../adapters/heck'),
+  // require('../adapters/helblerichter'),
+  // require('../adapters/hustherbold'),
+  // require('../adapters/immoka'),
+  // require('../adapters/immotrend'),
+  // require('../adapters/immowenk'),
+  // require('../adapters/kassel'),
+  // require('../adapters/km'),
+  // require('../adapters/koch-rheinstetten'),
+  // require('../adapters/kuehn'),
+  // require('../adapters/laub'),
+  // require('../adapters/leitgieb'),
+  // require('../adapters/neubaukompass'),
+  // require('../adapters/pellrich'),
+  // require('../adapters/pferrer'),
+  // // require('../adapters/postbank'), broken
+  // require('../adapters/seegerrusswurm'),
+  // require('../adapters/sekundus'),
+  // require('../adapters/spaka'),
+  // require('../adapters/spaka_haeuser'),
+  // require('../adapters/speck'),
+  // require('../adapters/suw'),
+  // require('../adapters/throm'),
+  // require('../adapters/volkswohnung'),
+  // require('../adapters/weisenburger'),
+  // require('../adapters/weststadtmakler'),
+  // require('../adapters/wipfler'),
+  //require('../adapters/aniseustachi'),
 ];
+
+// deactivated:
+// require('../adapters/baar'), => keine Projekte
+// require('../adapters/besserwohnen'), => Webseite veraltet
+// require('../adapters/blumenwinkel'), => derzeit nur Rastatt Vermietung
+// require('../adapters/engelvoelkers'), => E-Mail Alert erstellt
 
 module.exports.scrapeAll = () => {
   let errorList = [];

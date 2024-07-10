@@ -1,11 +1,11 @@
 'use strict';
 
-let FlowfactAdapter = require('./base/FlowfactAdapter');
+let AvaloneAdapter = require('./base/AvaloneAdapter');
 
 module.exports.scrape = () => {
-  let adapter = new FlowfactAdapter(
+  let adapter = new AvaloneAdapter(
     'avallone',
-    'http://540510.flowfact-sites.net/immoframe/?clear=1&typefilter=|1&pageno=INSERTPAGE'
+    'https://immobilien.avallone.de/ff/immobilien/?schema=house_purchase&price=&ffpage=INSERTPAGE&sort=date'
   );
   
   return adapter.scrape();

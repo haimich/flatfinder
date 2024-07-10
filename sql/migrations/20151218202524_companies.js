@@ -1,5 +1,5 @@
 
-exports.up = (knex, Promise) => {
+exports.up = (knex) => {
   return knex.schema.createTable('companies', (table) => {
     table.string('id').primary().index();
     table.text('name');

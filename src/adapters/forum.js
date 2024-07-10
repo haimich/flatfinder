@@ -5,8 +5,8 @@ let SimpleAdapter = require('./base/SimpleAdapter');
 module.exports.scrape = () => {
   let adapter = new SimpleAdapter(
     'forum',
-    'http://www.forum-bautraeger.de/angebote-neubau-und-sanierung/wohnung-zum-kauf/',
-    '#main #main-column h5 a', {
+    'https://forum-bautraeger.de/objekte/planung',
+    '.objekt-item-text h3', {
       useAbsoluteUrls: true
     }
   );
